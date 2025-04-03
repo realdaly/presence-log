@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    @font-face {
+        font-family: "Vazirmatn";
+        src: url("/fonts/Vazirmatn-Regular.ttf") format("truetype");
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: "Vazirmatn";
+        src: url("/fonts/Vazirmatn-Bold.ttf") format("truetype");
+        font-weight: 700;
+        font-style: bold;
+        font-display: swap;
+    }
+}
+
+@layer utilities {
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+   /* Hide scrollbar for IE, Edge and Firefox */
+    .no-scrollbar {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+  }
+}
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    #GradeTable, #GradeTable * {
+        visibility: visible !important;
+    }
+    #GradeTable {
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+  }
