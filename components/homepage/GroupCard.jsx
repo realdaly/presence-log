@@ -29,7 +29,7 @@ export default function GroupCard({currentGroup, getGroups}){
             <FcConferenceCall className="size-16" />
             <Link
                 className="flex items-center gap-x-2 w-fit bg-accent1 text-white font-bold px-3 py-1 rounded-full transition-all hover:text-accent1 hover:bg-white border border-accent1" 
-                href={`/group?gid=${currentGroup.id}`}
+                href={`/group?gid=${currentGroup.id}&gtitle=${currentGroup.title}`}
             >   
                 دخــــول
             </Link>

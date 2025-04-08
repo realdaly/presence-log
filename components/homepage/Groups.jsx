@@ -1,4 +1,5 @@
 import GroupCard from "@/components/homepage/GroupCard";
+import NoData from "@/components/ui/NoData";
 
 export default function Groups({groups, getGroups}){
     return(
@@ -10,6 +11,9 @@ export default function Groups({groups, getGroups}){
                     getGroups={getGroups}
                 />
             ))}
+            {groups.length == 0 &&
+                <NoData />
+            }
         </div>
     )
 }

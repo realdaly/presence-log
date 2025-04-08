@@ -1,9 +1,9 @@
 import { FaHouse } from "react-icons/fa6";
-import BreadcrumbBtn from "./BreadcrumbBtn";
+import BreadcrumbBtn from "@/components/template/BreadcrumbBtn";
 
 export default function Breadcrumb({children}){
     return(
-        <div className="p-3">
+        <div className="p-3 flex items-center gap-2">
             <BreadcrumbBtn 
                 path="/"
                 label="الرئيسية"

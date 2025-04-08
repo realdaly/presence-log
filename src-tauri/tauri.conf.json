@@ -19,7 +19,11 @@
     ],
     "security": {
       "capabilities": ["main-capability"],
-      "csp": null
+      "csp": "default-src 'self'; img-src 'self' asset: http://asset.localhost",
+      "assetProtocol": {
+        "enable": true,
+        "scope": ["**"]
+      }
     }
   },
   "bundle": {

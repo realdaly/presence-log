@@ -64,6 +64,7 @@ export default function CreateGroupBtn({getGroups}){
                             type="text"
                             name="required_hours"
                             onKeyDown={e => handleNumInput(e, setReqHours)}
+                            onChange={e => setReqHours(e.target.value)}
                             maxLength={2}
                             data-autofocus
                             />
@@ -73,6 +74,7 @@ export default function CreateGroupBtn({getGroups}){
                             type="text"
                             name="required_minutes"
                             onKeyDown={e => handleNumInput(e, setReqMins)}
+                            onChange={e => setReqMins(e.target.value)}
                             maxLength={2}
                             data-autofocus
                         />

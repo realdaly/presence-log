@@ -7,9 +7,9 @@ export default function Layout({breadcrumb, children}){
 
     return(
         <>
-            <Breadcrumb 
-                children={breadcrumb}
-            />
+            <Breadcrumb>
+                {breadcrumb}
+            </Breadcrumb>
             {children}
         </>
     );

@@ -2,7 +2,7 @@ import Link from "next/link";
 import DropdownMenu from "@/components/ui/DropdownMenu";
 import OptionsBtn from "@/components/ui/OptionsBtn";
 
-export default function EmployeeCard({name, path}){
+export default function EmployeeCard({name, image, path}){
     return(
         <div className="flex flex-col gap-y-3 w-fit bg-white items-center justify-center p-10 px-16 relative rounded-2xl shadow-md">
             <DropdownMenu
@@ -16,7 +16,7 @@ export default function EmployeeCard({name, path}){
             </DropdownMenu>
             <div className="size-24 overflow-hidden rounded-full">
                 <img 
-                    src="/imgs/default.png"
+                    src={image || `/imgs/default.png`}
                     alt="لا تتوفر صورة"
                     className="w-full h-full"
                 />
