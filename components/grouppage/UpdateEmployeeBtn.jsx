@@ -1,38 +1,48 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "@/components/ui/Modal";
-import createEmployee from "@/utils/grouppage/createEmployee";
+import updateEmployee from "@/utils/grouppage/updateEmployee";
+import handleNumInput from "@/utils/handleNumInput";
 import selectImage from "@/utils/grouppage/selectImage";
 import saveImage from "@/utils/grouppage/saveImage";
-import handleNumInput from "@/utils/handleNumInput";
+import { TbEditCircle } from "react-icons/tb";
 
-export default function CreateEmployeeBtn({getEmployees, groupId}){
+export default function UpdateEmployeeBtn({currentEmployee, imageUrl, getEmployees}){
     let [isOpen, setIsOpen] = useState(false);
 
     // states for values
-    let [name, setName] = useState("");
-    let [annualLeaveDays, setAnnualLeaveDays] = useState("");
-    let [order, setOrder] = useState("");
-    let [image, setImage] = useState("");
+    let [name, setName] = useState(currentEmployee?.name);
+    let [annualLeaveDays, setAnnualLeaveDays] = useState(currentEmployee?.annual_leave_days);
+    let [order, setOrder] = useState(currentEmployee?.order);
+    let [image, setImage] = useState(currentEmployee?.image);
 
     // image preview and save states
     let [previewImage, setPreviewImage] = useState("");
     let [imagePath, setImagePath] = useState("");
 
+    // new image state (only in this component)
+    let [newImage, setNewImage] = useState("");
+
     const submitFunc = async () => {
         if(name != "" && annualLeaveDays != "" && order != ""){
             setIsOpen(false);
 
-            // call saveImage function only if the user selected an image
-            if(image != "") await saveImage(imagePath);
+            // call saveImage function only if the user selected a new image
+            if(newImage != "") {
+                await saveImage(imagePath);
+                await updateEmployee(name, newImage, annualLeaveDays, order, currentEmployee.group_id, currentEmployee.id);
+            } else {
+                await updateEmployee(name, image, annualLeaveDays, order, currentEmployee.group_id, currentEmployee.id);
+            }
+
             
-            await createEmployee(name, image, annualLeaveDays, order, groupId)
             await getEmployees();
 
-            setName("");
-            setAnnualLeaveDays("");
-            setOrder("");
-            setImage("");
+            // reset states to previous values
+            setName(prev => prev);
+            setAnnualLeaveDays(prev => prev);
+            setOrder(prev => prev);
+            setImage(prev => prev);
             setPreviewImage("");
             setImagePath("");
         } else {
@@ -40,25 +50,27 @@ export default function CreateEmployeeBtn({getEmployees, groupId}){
         }
     }
 
-    function emptyPreviewImage(){
-        setPreviewImage("");
-    }
+    useEffect(() => {
+        if(currentEmployee?.image){
+            setPreviewImage(imageUrl);
+        }
+    }, []);
 
     return(
     <>
         <button
             onClick={() => setIsOpen(true)}
-            className="flex items-center justify-center mx-auto mt-7 gap-x-2 w-fit bg-accent1 text-white font-bold px-3 py-1 rounded-full transition-all hover:text-accent1 hover:bg-white border border-accent1" 
+            className="flex items-center justify-between w-full gap-x-3 p-1 pr-2 text-green-600 transition-all hover:bg-comp" 
         >   
-            إضافة موظف +
+            <p>تعديل</p>
+            <TbEditCircle className="size-6" />
         </button>
         <Modal 
-            title="إضافة موظف"
-            sumbitLabel="إضافة"
+            title="تعديل معلومات الموظف"
+            sumbitLabel="تـــم"
             isOpen={isOpen}
             setIsOpen={setIsOpen}
             submitFunc={submitFunc}
-            close={emptyPreviewImage}
         >
             <form 
                 className="flex flex-col items-center"
@@ -72,6 +84,7 @@ export default function CreateEmployeeBtn({getEmployees, groupId}){
                         className="w-full px-4 py-2 bg-comp rounded-xl" 
                         type="text" 
                         placeholder="أدخل اسم الموظف" 
+                        value={name}
                         onChange={e => setName(e.target.value)}
                         required=""
                         name="name"
@@ -82,6 +95,7 @@ export default function CreateEmployeeBtn({getEmployees, groupId}){
                             className="px-4 py-2 bg-comp rounded-xl" 
                             type="number" 
                             placeholder="الإجازات" 
+                            value={annualLeaveDays}
                             onKeyDown={e => handleNumInput(e, setAnnualLeaveDays)}
                             onChange={e => setAnnualLeaveDays(e.target.value)}
                             required=""
@@ -91,6 +105,7 @@ export default function CreateEmployeeBtn({getEmployees, groupId}){
                             className="px-4 py-2 bg-comp rounded-xl" 
                             type="number" 
                             placeholder="التسلسل" 
+                            value={order}
                             onKeyDown={e => handleNumInput(e, setOrder)}
                             onChange={e => setOrder(e.target.value)}
                             required=""
@@ -102,14 +117,14 @@ export default function CreateEmployeeBtn({getEmployees, groupId}){
                     <button 
                         type="button"
                         className="w-fit bg-accent1 text-white font-bold px-3 py-1 rounded-full cursor-pointer transition-all hover:text-accent1 hover:bg-white border border-accent1"
-                        onClick={() => selectImage(setPreviewImage, setImagePath, setImage)}
+                        onClick={() => selectImage(setPreviewImage, setImagePath, setNewImage)}
                     >
                         إضافة صورة
                         
                     </button>
                     <div className="size-16 overflow-hidden rounded-full">
                         <img 
-                            src={previewImage || "/imgs/default.png"}
+                            src={previewImage ? previewImage : "/imgs/default.png"}
                             alt="الصورة الافتراضية"
                             className="w-full h-full"
                         />

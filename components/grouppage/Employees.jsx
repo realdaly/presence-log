@@ -2,9 +2,8 @@ import EmployeeCard from "@/components/grouppage/EmployeeCard";
 import NoData from "@/components/ui/NoData";
 import { appDataDir } from "@tauri-apps/api/path";
 import { useEffect, useState } from "react";
-import { convertFileSrc } from "@tauri-apps/api/core";
 
-export default function Employees({employeesData}){
+export default function Employees({employeesData, getEmployees}){
     const [appDataPath, setAppDataPath] = useState("");
 
     useEffect(() => {
@@ -17,18 +16,19 @@ export default function Employees({employeesData}){
 
     return(
         <div className="flex flex-wrap items-center justify-center gap-5 pt-10">
-            {employeesData.map(item => {
-                const assetUrl = convertFileSrc(`${appDataPath}/${item.image}`);
-                
-                return(
-                    <EmployeeCard 
-                        key={item.id}
-                        name={item.name}
-                        image={assetUrl}
-                        path="#"
-                    />
-                );
-            })}
+            {employeesData
+            // create a shallow copy to avoid mutating the original array
+            .slice()
+            // sort in ascending order
+            .sort((a, b) => a.order - b.order)
+            .map(item => (
+                <EmployeeCard 
+                key={item.id}
+                currentEmployee={item}
+                appDataPath={appDataPath}
+                getEmployees={getEmployees}
+                />
+            ))}
             {employeesData.length == 0 &&
                 <NoData />
             }

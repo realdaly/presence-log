@@ -16,8 +16,11 @@ export default function UpdateGroupBtn({currentGroup, getGroups}){
     const submitFunc = async () => {
         if(title !== "" && reqHours !== "" && reqMins !== ""){
             setIsOpen(false);
+
             await updateGroup(title, reqHours, reqMins, currentGroup?.id);
             await getGroups();
+
+            // reset states to previous values
             setTitle(prev => prev);
             setReqHours(prev => prev);
             setReqMins(prev => prev);
@@ -37,7 +40,7 @@ export default function UpdateGroupBtn({currentGroup, getGroups}){
         </button>
         <Modal 
             title="تعديل النظام"
-            sumbitLabel="تم"
+            sumbitLabel="تـــم"
             isOpen={isOpen}
             setIsOpen={setIsOpen}
             submitFunc={submitFunc}

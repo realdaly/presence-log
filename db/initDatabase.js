@@ -20,8 +20,9 @@ export default async function initDatabase() {
       "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
       "name" VARCHAR(255) DEFAULT 'موظف بدون اسم',
       "image" VARCHAR(255) DEFAULT NULL,
-      "group_id" INTEGER DEFAULT NULL,
+      "annual_leave_days" INTEGER DEFAULT 23,
       "order" INTEGER DEFAULT 0,
+      "group_id" INTEGER DEFAULT NULL,
       FOREIGN KEY ("group_id") REFERENCES "group" ("id") ON DELETE CASCADE
     );
   `);

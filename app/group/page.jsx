@@ -50,7 +50,10 @@ export default function Group(){
         <Layout breadcrumb={breadcrumb}>
             {isLoading && <Loader />}
             {!isLoading && 
-                <Employees employeesData={employeesData} />
+                <Employees 
+                    employeesData={employeesData}
+                    getEmployees={getEmployees}
+                />
             }
             <CreateEmployeeBtn
                 getEmployees={getEmployees}
