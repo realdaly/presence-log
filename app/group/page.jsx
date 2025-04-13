@@ -8,7 +8,7 @@ import readEmployees from "@/utils/grouppage/readEmployees";
 import BreadcrumbBtn from "@/components/template/BreadcrumbBtn";
 import CreateEmployeeBtn from "@/components/grouppage/CreateEmployeeBtn";
 
-export default function Group(){
+export default function group(){
     const [groupId, setGroupId] = useState("");
     const [groupTitle, setGroupTitle] = useState("");
     const [employeesData, setEmployeesData] = useState([]);
@@ -53,6 +53,8 @@ export default function Group(){
                 <Employees 
                     employeesData={employeesData}
                     getEmployees={getEmployees}
+                    groupTitle={groupTitle}
+                    groupId={groupId}
                 />
             }
             <CreateEmployeeBtn

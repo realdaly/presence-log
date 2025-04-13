@@ -5,7 +5,7 @@ import DeleteEmployeeBtn from "@/components/grouppage/DeleteEmployeeBtn";
 import UpdateEmployeeBtn from "@/components/grouppage/UpdateEmployeeBtn";
 import { convertFileSrc } from "@tauri-apps/api/core";
 
-export default function EmployeeCard({currentEmployee, appDataPath, getEmployees}){
+export default function EmployeeCard({currentEmployee, appDataPath, getEmployees, groupTitle, groupId}){
     // convert path to actual url to render images correctly
     const imageUrl = convertFileSrc(`${appDataPath}/${currentEmployee.image}`);
 
@@ -39,7 +39,7 @@ export default function EmployeeCard({currentEmployee, appDataPath, getEmployees
             </p>
             <Link
                 className="flex items-center gap-x-2 w-fit bg-accent1 text-white font-bold px-3 py-1 rounded-full transition-all hover:text-accent1 hover:bg-white border border-accent1" 
-                href="#"
+                href={`/profile?gid=${groupId}&gtitle=${groupTitle}&eid=${currentEmployee.id}&ename=${currentEmployee.name}`}
             >   
                 عرض التفاصيل
             </Link>

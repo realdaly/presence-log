@@ -3,7 +3,7 @@ import NoData from "@/components/ui/NoData";
 import { appDataDir } from "@tauri-apps/api/path";
 import { useEffect, useState } from "react";
 
-export default function Employees({employeesData, getEmployees}){
+export default function Employees({employeesData, getEmployees, groupTitle, groupId}){
     const [appDataPath, setAppDataPath] = useState("");
 
     useEffect(() => {
@@ -23,10 +23,12 @@ export default function Employees({employeesData, getEmployees}){
             .sort((a, b) => a.order - b.order)
             .map(item => (
                 <EmployeeCard 
-                key={item.id}
-                currentEmployee={item}
-                appDataPath={appDataPath}
-                getEmployees={getEmployees}
+                    key={item.id}
+                    currentEmployee={item}
+                    appDataPath={appDataPath}
+                    getEmployees={getEmployees}
+                    groupTitle={groupTitle}
+                    groupId={groupId}
                 />
             ))}
             {employeesData.length == 0 &&
