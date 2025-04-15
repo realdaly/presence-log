@@ -8,8 +8,10 @@ import BreadcrumbBtn from "@/components/template/BreadcrumbBtn";
 import AttendanceRow from "@/components/profilepage/AttendanceRow";
 import TableHeader from "@/components/profilepage/TableHeader";
 import readYears from "@/utils/profilepage/readYears";
+import readMonths from "@/utils/profilepage/readMonths";
 import NoData from "@/components/ui/NoData";
 import CreateYearBtn from "@/components/profilepage/CreateYearBtn";
+import CreateMonthBtn from "@/components/profilepage/CreateMonthBtn";
 
 export default function profile(){
     const attendanceData = [
@@ -92,8 +94,10 @@ export default function profile(){
 
     const [isLoading, setIsLoading] = useState(true);
     const [yearsData, setYearsData] = useState([]);
+    const [monthsData, setMonthsData] = useState([]);
 
     const [currentYear, setCurrentYear] = useState("");
+    const [currentMonth, setCurrentMonth] = useState("");
 
     const breadcrumb = (
       <>
@@ -120,6 +124,16 @@ export default function profile(){
       setYearsData(fetchedYears);
     };
 
+    const getMonths = async () => {
+      const fetchedMonths = await readMonths(employeeId, currentYear.id);
+      console.log(fetchedMonths);
+      
+      if(fetchedMonths.length > 0){
+        setCurrentMonth(fetchedMonths[0]);
+      }
+      setMonthsData(fetchedMonths);
+    };
+
     useEffect(() => {
       const searchParams = new URLSearchParams(window.location.search);
       setGroupId(searchParams.get("gid"));
@@ -135,6 +149,12 @@ export default function profile(){
       }
     }, [employeeId]);
 
+    useEffect(() => {
+      if(currentYear){
+        getMonths();
+      }
+    }, [currentYear]);
+
     if (!employeeId) {
       return <Loader />;
     }
@@ -144,16 +164,21 @@ export default function profile(){
         {isLoading && <Loader />}
         {!isLoading && 
           <div className="w-full overflow-x-auto px-3">
-            <div className="pb-3">
+            <div className="pb-3 flex items-center gap-2">
               <CreateYearBtn 
                 employeeId={employeeId}
                 getYears={getYears}
+              />
+              <CreateMonthBtn 
+                employeeId={employeeId}
+                year={currentYear}
               />
             </div>
             <div className="min-w-full">
               <TableHeader />
               {attendanceData.map((data, index) => (
-                yearsData.length > 0 && <AttendanceRow key={index} data={data} />
+                yearsData.length > 0 && monthsData.length > 0 &&
+                <AttendanceRow key={index} data={data} />
               ))}
               {yearsData.length == 0 &&
                 <div className="pt-7">

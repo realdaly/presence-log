@@ -6,7 +6,7 @@ export default function TableHeader(){
             <div className="p-3 text-center md:w-[14.28%]">وقت الانصراف</div>
             <div className="p-3 text-center md:w-[14.28%]">الوقت الكلي</div>
             <div className="p-3 text-center md:w-[14.28%]">مقدار الزيادة</div>
-            <div className="p-3 text-center md:w-[14.28%]">مقدار النقصة</div>
+            <div className="p-3 text-center md:w-[14.28%]">مقدار النقيصة</div>
             <div className="p-3 text-center md:w-[14.28%]">الملاحظات</div>
         </div>
     )

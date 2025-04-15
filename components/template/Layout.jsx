@@ -6,11 +6,11 @@ export default function Layout({breadcrumb, children}){
     const { isAlert, setIsAlert, loading } = useTheme();
 
     return(
-        <>
+        <div className="mb-5">
             <Breadcrumb>
                 {breadcrumb}
             </Breadcrumb>
             {children}
-        </>
+        </div>
     );
 }
