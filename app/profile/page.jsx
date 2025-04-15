@@ -9,6 +9,7 @@ import AttendanceRow from "@/components/profilepage/AttendanceRow";
 import TableHeader from "@/components/profilepage/TableHeader";
 import readYears from "@/utils/profilepage/readYears";
 import NoData from "@/components/ui/NoData";
+import CreateYearBtn from "@/components/profilepage/CreateYearBtn";
 
 export default function profile(){
     const attendanceData = [
@@ -92,6 +93,8 @@ export default function profile(){
     const [isLoading, setIsLoading] = useState(true);
     const [yearsData, setYearsData] = useState([]);
 
+    const [currentYear, setCurrentYear] = useState("");
+
     const breadcrumb = (
       <>
         <BreadcrumbBtn 
@@ -111,6 +114,9 @@ export default function profile(){
 
     const getYears = async () => {
       const fetchedYears = await readYears(employeeId);
+      if(fetchedYears.length > 0){
+        setCurrentYear(fetchedYears[0]);
+      }
       setYearsData(fetchedYears);
     };
 
@@ -138,6 +144,12 @@ export default function profile(){
         {isLoading && <Loader />}
         {!isLoading && 
           <div className="w-full overflow-x-auto px-3">
+            <div className="pb-3">
+              <CreateYearBtn 
+                employeeId={employeeId}
+                getYears={getYears}
+              />
+            </div>
             <div className="min-w-full">
               <TableHeader />
               {attendanceData.map((data, index) => (
