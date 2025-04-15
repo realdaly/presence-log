@@ -1,4 +1,4 @@
-export default function NoData(){
+export default function NoData({text}){
     return(
         <div className="flex flex-col justify-center items-center">
             <p>لا توجد بيانات!</p>

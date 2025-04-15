@@ -11,9 +11,10 @@ import CreateEmployeeBtn from "@/components/grouppage/CreateEmployeeBtn";
 export default function group(){
     const [groupId, setGroupId] = useState("");
     const [groupTitle, setGroupTitle] = useState("");
-    const [employeesData, setEmployeesData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-
+    
+    const [employeesData, setEmployeesData] = useState([]);
+    
     const breadcrumb = (
         <BreadcrumbBtn 
             path=""

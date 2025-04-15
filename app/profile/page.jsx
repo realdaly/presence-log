@@ -5,7 +5,10 @@ import { FaUserCircle } from "react-icons/fa";
 import Layout from "@/components/template/Layout";
 import Loader from "@/components/ui/Loader";
 import BreadcrumbBtn from "@/components/template/BreadcrumbBtn";
-
+import AttendanceRow from "@/components/profilepage/AttendanceRow";
+import TableHeader from "@/components/profilepage/TableHeader";
+import readYears from "@/utils/profilepage/readYears";
+import NoData from "@/components/ui/NoData";
 
 export default function profile(){
     const attendanceData = [
@@ -81,84 +84,73 @@ export default function profile(){
         },
     ]
 
-
     const [groupId, setGroupId] = useState("");
     const [groupTitle, setGroupTitle] = useState("");
+    const [employeeId, setEmployeeId] = useState("");
     const [employeeName, setEmployeeName] = useState("");
 
+    const [isLoading, setIsLoading] = useState(true);
+    const [yearsData, setYearsData] = useState([]);
+
     const breadcrumb = (
-        <>
-            <BreadcrumbBtn 
-                path={`/group?gid=${groupId}&gtitle=${groupTitle}`}
-                label={groupTitle}
-            >
-                <FaUsers className="pb-0.5 size-5" />
-            </BreadcrumbBtn>
-            <BreadcrumbBtn 
-                path=""
-                label={employeeName}
-            >
-                <FaUserCircle className="pb-0.5 size-5" />
-            </BreadcrumbBtn>
-        </>
+      <>
+        <BreadcrumbBtn 
+          path={`/group?gid=${groupId}&gtitle=${groupTitle}`}
+          label={groupTitle}
+        >
+          <FaUsers className="pb-0.5 size-5" />
+        </BreadcrumbBtn>
+        <BreadcrumbBtn 
+          path=""
+          label={employeeName}
+        >
+          <FaUserCircle className="pb-0.5 size-5" />
+        </BreadcrumbBtn>
+      </>
     );
 
+    const getYears = async () => {
+      const fetchedYears = await readYears(employeeId);
+      setYearsData(fetchedYears);
+    };
+
     useEffect(() => {
-        const searchParams = new URLSearchParams(window.location.search);
-        setGroupId(searchParams.get("gid"));
-        setGroupTitle(searchParams.get("gtitle"));
-        setEmployeeName(searchParams.get("ename"));
+      const searchParams = new URLSearchParams(window.location.search);
+      setGroupId(searchParams.get("gid"));
+      setGroupTitle(searchParams.get("gtitle"));
+      setEmployeeId(searchParams.get("eid"));
+      setEmployeeName(searchParams.get("ename"));
     }, []);
 
+    useEffect(() => {
+      if(employeeId){
+        getYears();
+        setIsLoading(false);
+      }
+    }, [employeeId]);
+
+    if (!employeeId) {
+      return <Loader />;
+    }
+
     return(
-        <Layout breadcrumb={breadcrumb}>
-            <div className="w-full overflow-x-auto px-3">
-                <div className="min-w-full">
-                    <TableHeader />
-                    {attendanceData.map((data, index) => (
-                        <AttendanceRow key={index} data={data} />
-                    ))}
+      <Layout breadcrumb={breadcrumb}>
+        {isLoading && <Loader />}
+        {!isLoading && 
+          <div className="w-full overflow-x-auto px-3">
+            <div className="min-w-full">
+              <TableHeader />
+              {attendanceData.map((data, index) => (
+                yearsData.length > 0 && <AttendanceRow key={index} data={data} />
+              ))}
+              {yearsData.length == 0 &&
+                <div className="pt-7">
+                    <NoData />
                 </div>
+              }
             </div>
-        </Layout>
-    )
-}
-
-// Individual row component that can be used with map
-const AttendanceRow = ({ data }) => {
-    return (
-      <div className="flex flex-col justify-center md:flex-row border-b border-r border-l last:rounded-b-xl bg-white">
-        <div className="p-3 my-auto text-center md:w-[14.28%] font-medium">
-          <div>{data.day}</div>
-          <div className="text-sm text-gray-500">{data.date}</div>
-        </div>
-        <div className="p-3 my-auto text-center md:w-[14.28%]">{data.attendanceTime}</div>
-        <div className="p-3 my-auto text-center md:w-[14.28%]">{data.departureTime}</div>
-        <div className="p-3 my-auto text-center md:w-[14.28%]">{data.totalTime}</div>
-        <div className="p-3 my-auto text-center md:w-[14.28%]">
-          <span className="px-3 py-1 rounded-full bg-green-100">{data.increaseAmount}</span>
-        </div>
-        <div className="p-3 my-auto text-center md:w-[14.28%]">
-          <span className="px-3 py-1 rounded-full bg-red-100">{data.decreaseAmount}</span>
-        </div>
-        <div className="p-3 my-auto text-center md:w-[14.28%]">
-            {data.notes != "" ? data.notes : "......."}
-        </div>
-      </div>
-    )
-}
-
-// Table header component
-const TableHeader = () => {
-    return (
-      <div className="flex flex-col md:flex-row bg-gray-200 border-b font-bold rounded-t-xl">
-        <div className="p-3 text-center md:w-[14.28%]">اليوم</div>
-        <div className="p-3 text-center md:w-[14.28%]">وقت الحضور</div>
-        <div className="p-3 text-center md:w-[14.28%]">وقت الانصراف</div>
-        <div className="p-3 text-center md:w-[14.28%]">الوقت الكلي</div>
-        <div className="p-3 text-center md:w-[14.28%]">مقدار الزيادة</div>
-        <div className="p-3 text-center md:w-[14.28%]">مقدار النقصة</div>
-        <div className="p-3 text-center md:w-[14.28%]">الملاحظات</div>
-      </div>
+          </div>
+        }
+      </Layout>
     )
 }

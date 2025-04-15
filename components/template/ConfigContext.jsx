@@ -2,7 +2,6 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import readConfig from "@/utils/readConfig";
 import readGroups from "@/utils/homepage/readGroups";
-import readTerms from "@/utils/terms/readTerms";
 import initDatabase from "@/db/initDatabase";
 
 const ConfigContext = createContext()
@@ -63,20 +62,12 @@ export const ThemeProvider = ({ children }) => {
         value={{ 
             title,
             setTitle,
-            school,
-            setSchool,
-            year,
-            setYear,
-            principal,
-            setPrincipal,
             accentColor, 
             setAccentColor,
             loading,
             setLoading,
             groups,
             getGroups,
-            terms,
-            getTerms,
             isAlert,
             setIsAlert
         }}
