@@ -5,88 +5,16 @@ import { FaUserCircle } from "react-icons/fa";
 import Layout from "@/components/template/Layout";
 import Loader from "@/components/ui/Loader";
 import BreadcrumbBtn from "@/components/template/BreadcrumbBtn";
-import AttendanceRow from "@/components/profilepage/AttendanceRow";
+import DayRow from "@/components/profilepage/DayRow";
 import TableHeader from "@/components/profilepage/TableHeader";
 import readYears from "@/utils/profilepage/readYears";
 import readMonths from "@/utils/profilepage/readMonths";
+import readDays from "@/utils/profilepage/readDays";
 import NoData from "@/components/ui/NoData";
 import CreateYearBtn from "@/components/profilepage/CreateYearBtn";
 import CreateMonthBtn from "@/components/profilepage/CreateMonthBtn";
 
 export default function profile(){
-    const attendanceData = [
-        {
-          day: "الاثنين",
-          date: "08/1/2024",
-          attendanceTime: "الساعة 7 و 59 دقيقة",
-          departureTime: "الساعة 12 و 35 دقيقة",
-          totalTime: "4 ساعة و 36 دقيقة",
-          increaseAmount: "0 ساعة و 36 دقيقة",
-          decreaseAmount: "0 ساعة و 0 دقيقة",
-          notes: "عرض الملاحظات",
-        },
-        {
-          day: "الاحد",
-          date: "07/1/2024",
-          attendanceTime: "الساعة 9 و 9 دقيقة",
-          departureTime: "الساعة 14 و 10 دقيقة",
-          totalTime: "5 ساعة و 1 دقيقة",
-          increaseAmount: "1 ساعة و 1 دقيقة",
-          decreaseAmount: "0 ساعة و 0 دقيقة",
-          notes: "",
-        },
-        {
-          day: "السبت",
-          date: "06/1/2024",
-          attendanceTime: "الساعة 9 و 8 دقيقة",
-          departureTime: "الساعة 13 و 35 دقيقة",
-          totalTime: "4 ساعة و 27 دقيقة",
-          increaseAmount: "0 ساعة و 27 دقيقة",
-          decreaseAmount: "0 ساعة و 0 دقيقة",
-          notes: "",
-        },
-        {
-          day: "الخميس",
-          date: "04/1/2024",
-          attendanceTime: "الساعة 8 و 33 دقيقة",
-          departureTime: "الساعة 11 و 45 دقيقة",
-          totalTime: "3 ساعة و 12 دقيقة",
-          increaseAmount: "0 ساعة و 0 دقيقة",
-          decreaseAmount: "0 ساعة و 48 دقيقة",
-          notes: "",
-        },
-        {
-          day: "الأربعاء",
-          date: "03/1/2024",
-          attendanceTime: "الساعة 9 و 0 دقيقة",
-          departureTime: "الساعة 13 و 0 دقيقة",
-          totalTime: "4 ساعة و 0 دقيقة",
-          increaseAmount: "0 ساعة و 0 دقيقة",
-          decreaseAmount: "0 ساعة و 0 دقيقة",
-          notes: "",
-        },
-        {
-          day: "الثلاثاء",
-          date: "02/1/2024",
-          attendanceTime: "الساعة 10 و 54 دقيقة",
-          departureTime: "الساعة 14 و 46 دقيقة",
-          totalTime: "3 ساعة و 52 دقيقة",
-          increaseAmount: "0 ساعة و 0 دقيقة",
-          decreaseAmount: "0 ساعة و 8 دقيقة",
-          notes: "",
-        },
-        {
-          day: "الاثنين",
-          date: "01/1/2024",
-          attendanceTime: "الساعة 9 و 33 دقيقة",
-          departureTime: "الساعة 13 و 28 دقيقة",
-          totalTime: "3 ساعة و 55 دقيقة",
-          increaseAmount: "0 ساعة و 0 دقيقة",
-          decreaseAmount: "0 ساعة و 5 دقيقة",
-          notes: "",
-        },
-    ]
-
     const [groupId, setGroupId] = useState("");
     const [groupTitle, setGroupTitle] = useState("");
     const [employeeId, setEmployeeId] = useState("");
@@ -95,6 +23,7 @@ export default function profile(){
     const [isLoading, setIsLoading] = useState(true);
     const [yearsData, setYearsData] = useState([]);
     const [monthsData, setMonthsData] = useState([]);
+    const [daysData, setDaysData] = useState([]);
 
     const [currentYear, setCurrentYear] = useState("");
     const [currentMonth, setCurrentMonth] = useState("");
@@ -125,13 +54,18 @@ export default function profile(){
     };
 
     const getMonths = async () => {
-      const fetchedMonths = await readMonths(employeeId, currentYear.id);
-      console.log(fetchedMonths);
-      
+      const fetchedMonths = await readMonths(employeeId, currentYear.id);      
       if(fetchedMonths.length > 0){
         setCurrentMonth(fetchedMonths[0]);
       }
       setMonthsData(fetchedMonths);
+    };
+
+    const getDays = async () => {
+      const fetchedDays = await readDays(employeeId, currentMonth.id, currentYear.id);
+      console.log(fetchedDays[0]);
+      
+      setDaysData(fetchedDays);
     };
 
     useEffect(() => {
@@ -155,6 +89,12 @@ export default function profile(){
       }
     }, [currentYear]);
 
+    useEffect(() => {
+      if(currentMonth){
+        getDays();
+      }
+    }, [currentMonth]);
+
     if (!employeeId) {
       return <Loader />;
     }
@@ -172,15 +112,20 @@ export default function profile(){
               <CreateMonthBtn 
                 employeeId={employeeId}
                 year={currentYear}
+                getMonths={getMonths}
               />
             </div>
             <div className="min-w-full">
               <TableHeader />
-              {attendanceData.map((data, index) => (
-                yearsData.length > 0 && monthsData.length > 0 &&
-                <AttendanceRow key={index} data={data} />
+              {daysData.map(item => (
+                yearsData.length > 0 && monthsData.length > 0 && daysData.length > 0 &&
+                <DayRow 
+                  key={item.id} 
+                  data={item}
+                  year={currentYear.title}
+                />
               ))}
-              {yearsData.length == 0 &&
+              {yearsData.length == 0 || monthsData.length == 0 || daysData.length == 0 &&
                 <div className="pt-7">
                     <NoData />
                 </div>
