@@ -7,7 +7,7 @@ import UpdateGroupBtn from "@/components/homepage/UpdateGroupBtn";
 
 export default function GroupCard({currentGroup, getGroups}){
     return(
-        <div className="flex flex-col gap-y-3 w-fit bg-white items-center justify-center p-10 px-16 relative rounded-2xl shadow-md">
+        <div className="flex flex-col gap-y-3 w-fit bg-white items-center justify-center p-10 px-16 relative rounded-2xl shadow-md border border-opacity-10">
             <DropdownMenu
                 button={<OptionsBtn />}
                 menuStyle="absolute left-2 top-2"

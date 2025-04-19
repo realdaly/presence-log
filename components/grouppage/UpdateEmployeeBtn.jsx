@@ -6,6 +6,7 @@ import handleNumInput from "@/utils/handleNumInput";
 import selectImage from "@/utils/grouppage/selectImage";
 import saveImage from "@/utils/grouppage/saveImage";
 import { TbEditCircle } from "react-icons/tb";
+import { RiDeleteBack2Fill } from "react-icons/ri";
 
 export default function UpdateEmployeeBtn({currentEmployee, imageUrl, getEmployees}){
     let [isOpen, setIsOpen] = useState(false);
@@ -129,8 +130,18 @@ export default function UpdateEmployeeBtn({currentEmployee, imageUrl, getEmploye
                             className="w-full h-full"
                         />
                     </div>
+                    <div
+                        onClick={
+                            () => {
+                                setImage("");
+                                setPreviewImage("");
+                            }
+                    } 
+                        className="transition-all hover:opacity-75 cursor-pointer"
+                    >
+                        <RiDeleteBack2Fill className="size-7 text-danger" />
+                    </div>
                 </div>
-                
                 <button type="submit" hidden />
             </form>
         </Modal>

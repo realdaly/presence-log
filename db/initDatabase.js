@@ -1,8 +1,11 @@
 "use client";
-import Database from "@tauri-apps/plugin-sql";
+import getDatabase from "@/utils/getDatabase";
 
 export default async function initDatabase() {
-  const db = await Database.load("sqlite:presence.db");
+  const db = await getDatabase();
+
+  // Enable foreign key constraints
+  await db.execute(`PRAGMA foreign_keys = ON;`);
 
   // Group Table
   await db.execute(`

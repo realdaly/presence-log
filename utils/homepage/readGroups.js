@@ -1,7 +1,7 @@
-import Database from "@tauri-apps/plugin-sql";
+import getDatabase from "@/utils/getDatabase";
 
 export default async function readGroups(){
-    const db = await Database.load("sqlite:presence.db", {dir: "AppData"});
+    const db = await getDatabase();
     const groups = await db.select("SELECT * FROM 'group'");
 
     return groups;

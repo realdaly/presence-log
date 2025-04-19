@@ -1,7 +1,7 @@
-import Database from "@tauri-apps/plugin-sql";
+import getDatabase from "@/utils/getDatabase";
 
 export default async function readClasses(setData){
-    const db = await Database.load("sqlite:grades.db");
+    const db = await getDatabase();
     const classes = await db.select(`
         SELECT 
             class.id, 

@@ -1,8 +1,8 @@
-import Database from "@tauri-apps/plugin-sql";
+import getDatabase from "@/utils/getDatabase";
 
 export default async function readConfig(setTitle, setSchool, setYear, setPrincipal, accentColor, setAccentColor){
     const defaultTitle = "ســـجـــل الـــدرجـــــات الـــمـــدرســـــي";
-    const db = await Database.load("sqlite:grades.db");
+    const db = await getDatabase();
     const response = await db.select("SELECT * from config LIMIT 1");
     
     if(response?.length > 0){

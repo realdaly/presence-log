@@ -13,6 +13,7 @@ import readDays from "@/utils/profilepage/readDays";
 import NoData from "@/components/ui/NoData";
 import CreateYearBtn from "@/components/profilepage/CreateYearBtn";
 import CreateMonthBtn from "@/components/profilepage/CreateMonthBtn";
+import CreateDayBtn from "@/components/profilepage/CreateDayBtn";
 
 export default function profile(){
     const [groupId, setGroupId] = useState("");
@@ -113,6 +114,12 @@ export default function profile(){
                 employeeId={employeeId}
                 year={currentYear}
                 getMonths={getMonths}
+              />
+              <CreateDayBtn 
+                employeeId={employeeId}
+                year={currentYear}
+                month={currentMonth}
+                getDays={getDays}
               />
             </div>
             <div className="min-w-full">
