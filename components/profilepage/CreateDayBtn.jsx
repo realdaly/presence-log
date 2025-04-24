@@ -1,15 +1,16 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "@/components/ui/Modal";
 import createDay from "@/utils/profilepage/createDay";
 import handleNumInput from "@/utils/handleNumInput";
 
-export default function CreateDayBtn({employeeId, year, month, getDays}){
+export default function CreateDayBtn({employeeId, year, month, groupInfo, getDays}){
     let [isOpen, setIsOpen] = useState(false);
 
     // states for values
     let [title, setTitle] = useState("");
     let [timeOff, setTimeOff] = useState(false);
+    let [timeOffValue, setTimeOffValue] = useState(0);
     let [attendHour, setAttendHour] = useState("");
     let [attendMin, setAttendMin] = useState("");
     let [leaveHour, setLeaveHour] = useState("");
@@ -25,13 +26,40 @@ export default function CreateDayBtn({employeeId, year, month, getDays}){
     const submitFunc = async () => {
         if(title){
             setIsOpen(false);
-            await createDay(title, employeeId, year.id);
+            await createDay(
+                title, 
+                timeOffValue, 
+                attendHour, 
+                attendMin, 
+                leaveHour, 
+                leaveMin, 
+                exitHour, 
+                exitMin, 
+                enterHour, 
+                enterMin, 
+                dateDay, 
+                dateMonth, 
+                note, 
+                groupInfo.required_hours, 
+                groupInfo.required_minutes, 
+                employeeId, 
+                month.id, 
+                year.id
+            );
             await getDays();
             setTitle("");
         } else {
             alert("يجب ملئ جميع الحقول.");
         }
     }
+
+    useEffect(() => {
+        if(timeOff == true){
+            setTimeOffValue(1);
+        } else{
+            setTimeOffValue(0);
+        }
+    }, [timeOff]);
 
     return(
     <>
@@ -60,7 +88,7 @@ export default function CreateDayBtn({employeeId, year, month, getDays}){
                     placeholder="أدخل اسم اليوم، الخميس مثلاً"
                     className="px-4 py-2 bg-comp rounded-xl w-96" 
                     type="text"
-                    name="title"
+                    name="day_title"
                     onChange={e => setTitle(e.target.value)}
                     data-autofocus
                 />
@@ -171,8 +199,8 @@ export default function CreateDayBtn({employeeId, year, month, getDays}){
                                     className="px-4 py-2 bg-comp rounded-xl w-20 disabled:bg-black/50" 
                                     type="text"
                                     name="enter_hour"
-                                    onKeyDown={e => handleNumInput(e, setLeaveHour)}
-                                    onChange={e => setLeaveHour(e.target.value)}
+                                    onKeyDown={e => handleNumInput(e, setEnterHour)}
+                                    onChange={e => setEnterHour(e.target.value)}
                                     maxLength={2}
                                     disabled={timeOff}
                                     />
@@ -181,8 +209,8 @@ export default function CreateDayBtn({employeeId, year, month, getDays}){
                                     className="px-4 py-2 bg-comp rounded-xl w-20 disabled:bg-black/50" 
                                     type="text"
                                     name="enter_minute"
-                                    onKeyDown={e => handleNumInput(e, setLeaveMin)}
-                                    onChange={e => setLeaveMin(e.target.value)}
+                                    onKeyDown={e => handleNumInput(e, setEnterMin)}
+                                    onChange={e => setEnterMin(e.target.value)}
                                     maxLength={2}
                                     disabled={timeOff}
                                 />

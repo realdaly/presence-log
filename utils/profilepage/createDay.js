@@ -112,16 +112,16 @@ export default async function createDay(
   const required_total_minutes = (required_hours ?? 0) * 60 + (required_minutes ?? 0);
 
   if (!time_off) {
-    const attend_total = (attend_hour ?? 0) * 60 + (attend_minute ?? 0);
-    const leave_total = (leave_hour ?? 0) * 60 + (leave_minute ?? 0);
+    const attend_total = (parseInt(attend_hour) || 0) * 60 + (parseInt(attend_minute) || 0);
+    const leave_total = (parseInt(leave_hour) || 0) * 60 + (parseInt(leave_minute) || 0);
 
     const exit_total =
       exit_hour != null && exit_minute != null
-        ? exit_hour * 60 + exit_minute
+        ? (parseInt(exit_hour) || 0) * 60 + (parseInt(exit_minute) || 0)
         : 0;
     const enter_total =
       enter_hour != null && enter_minute != null
-        ? enter_hour * 60 + enter_minute
+        ? (parseInt(enter_hour) || 0) * 60 + (parseInt(enter_minute) || 0)
         : 0;
 
     const implicit_time = enter_total > 0 && exit_total > 0 ? enter_total - exit_total : 0;

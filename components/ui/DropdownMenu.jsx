@@ -1,6 +1,6 @@
 import { Popover, PopoverButton, PopoverPanel } from "@headlessui/react";
 
-export default function DropdownMenu({button, menuStyle, children}){
+export default function DropdownMenu({button, menuStyle, panelStyle, children}){
     return(
     <div className={menuStyle}>
         <Popover className="relative">
@@ -10,7 +10,7 @@ export default function DropdownMenu({button, menuStyle, children}){
             <PopoverPanel 
                 anchor="bottom"
                 transition
-                className="pr-5 origin-top transition duration-200 ease-out data-[closed]:scale-95 data-[closed]:opacity-0"
+                className={`origin-top transition duration-200 ease-out data-[closed]:scale-95 data-[closed]:opacity-0 ${panelStyle}`}
             >
                 {children}
             </PopoverPanel>

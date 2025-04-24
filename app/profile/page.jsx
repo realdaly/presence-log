@@ -7,10 +7,11 @@ import Loader from "@/components/ui/Loader";
 import BreadcrumbBtn from "@/components/template/BreadcrumbBtn";
 import DayRow from "@/components/profilepage/DayRow";
 import TableHeader from "@/components/profilepage/TableHeader";
+import NoData from "@/components/ui/NoData";
+import readSingleGroup from "@/utils/homepage/readSingleGroup";
 import readYears from "@/utils/profilepage/readYears";
 import readMonths from "@/utils/profilepage/readMonths";
 import readDays from "@/utils/profilepage/readDays";
-import NoData from "@/components/ui/NoData";
 import CreateYearBtn from "@/components/profilepage/CreateYearBtn";
 import CreateMonthBtn from "@/components/profilepage/CreateMonthBtn";
 import CreateDayBtn from "@/components/profilepage/CreateDayBtn";
@@ -22,6 +23,7 @@ export default function profile(){
     const [employeeName, setEmployeeName] = useState("");
 
     const [isLoading, setIsLoading] = useState(true);
+    const [groupInfo, setGroupInfo] = useState({});
     const [yearsData, setYearsData] = useState([]);
     const [monthsData, setMonthsData] = useState([]);
     const [daysData, setDaysData] = useState([]);
@@ -46,6 +48,11 @@ export default function profile(){
       </>
     );
 
+    const getGroupInfo = async () => {
+      const fetchedGroupInfo = await readSingleGroup(groupId);      
+      setGroupInfo(fetchedGroupInfo);
+    }
+
     const getYears = async () => {
       const fetchedYears = await readYears(employeeId);
       if(fetchedYears.length > 0){
@@ -63,9 +70,7 @@ export default function profile(){
     };
 
     const getDays = async () => {
-      const fetchedDays = await readDays(employeeId, currentMonth.id, currentYear.id);
-      console.log(fetchedDays[0]);
-      
+      const fetchedDays = await readDays(employeeId, currentMonth.id, currentYear.id);      
       setDaysData(fetchedDays);
     };
 
@@ -79,6 +84,7 @@ export default function profile(){
 
     useEffect(() => {
       if(employeeId){
+        getGroupInfo();
         getYears();
         setIsLoading(false);
       }
@@ -120,6 +126,7 @@ export default function profile(){
                 year={currentYear}
                 month={currentMonth}
                 getDays={getDays}
+                groupInfo={groupInfo}
               />
             </div>
             <div className="min-w-full">
@@ -130,13 +137,15 @@ export default function profile(){
                   key={item.id} 
                   data={item}
                   year={currentYear.title}
+                  getDays={getDays}
+                  timeOff={item.time_off}
                 />
               ))}
-              {yearsData.length == 0 || monthsData.length == 0 || daysData.length == 0 &&
+              {(yearsData.length == 0 || monthsData.length == 0 || daysData.length == 0) && (
                 <div className="pt-7">
                     <NoData />
                 </div>
-              }
+              )}
             </div>
           </div>
         }

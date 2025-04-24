@@ -14,6 +14,7 @@ export default function EmployeeCard({currentEmployee, appDataPath, getEmployees
             <DropdownMenu
                 button={<OptionsBtn />}
                 menuStyle="absolute right-2 top-2"
+                panelStyle="pr-5"
             >
                 <div className="bg-domI border rounded-lg overflow-hidden">
                     <UpdateEmployeeBtn
