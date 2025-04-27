@@ -2,8 +2,11 @@
 import { useState } from "react";
 import Modal from "@/components/ui/Modal";
 import createYear from "@/utils/profilepage/createYear";
+import DropdownMenu from "@/components/ui/DropdownMenu";
+import { IoIosArrowDown } from "react-icons/io";
+import Link from "next/link";
 
-export default function CreateYearBtn({employeeId, getYears}){
+export default function CreateYearBtn({employeeId, years, getYears, currentYear, setCurrentYear}){
     let [isOpen, setIsOpen] = useState(false);
 
     // states for values
@@ -22,12 +25,43 @@ export default function CreateYearBtn({employeeId, getYears}){
 
     return(
     <>
+        {years?.length == 0 && 
         <button
             onClick={() => setIsOpen(true)}
-            className="flex items-center justify-center mt-7 gap-x-2 w-fit select-none bg-accent1 text-white font-bold px-3 py-1 rounded-full transition-all hover:text-accent1 hover:bg-white border border-accent1" 
+            className="flex items-center justify-center gap-x-2 w-fit select-none bg-accent1 text-white font-bold px-3 py-1 rounded-full transition-all hover:text-accent1 hover:bg-white border border-accent1" 
         >   
             إضافة سنة +
-        </button>
+        </button>}
+        {years.length > 0 && 
+        <DropdownMenu
+            button={
+                <div className="flex items-center justify-center gap-x-2 w-fit select-none bg-accent1 text-white font-bold px-3 pb-1 pt-1.5 rounded-full transition-all hover:text-accent1 hover:bg-white border border-accent1">
+                    <span>
+                        {currentYear.title}
+                    </span>
+                    <IoIosArrowDown 
+                        className="transition-all group-data-[open]:rotate-180"
+                    />
+                </div>
+            }
+            panelStyle="pt-1"
+        >
+            {years.map(year => (
+                <p 
+                    onClick={() => setCurrentYear(year)}
+                    key={year.id}
+                    className="cursor-pointer px-5 py-1 text-white font-bold bg-accent1 first:rounded-t-2xl first:pt-2 last:rounded-b-2xl transition-all hover:text-accent1 hover:bg-white border border-accent1"
+                >
+                    {year.title}
+                </p>
+            ))}
+            <p 
+                onClick={() => setIsOpen(true)}
+                className="cursor-pointer px-5 py-1 text-white font-bold bg-accent1 first:rounded-t-2xl first:pt-2 last:rounded-b-2xl transition-all hover:text-accent1 hover:bg-white border border-accent1"
+            >
+                إضافة +
+            </p>
+        </DropdownMenu>}
         <Modal 
             title="إضافة سنة"
             sumbitLabel="إضافة"

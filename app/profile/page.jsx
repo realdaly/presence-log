@@ -111,10 +111,13 @@ export default function profile(){
         {isLoading && <Loader />}
         {!isLoading && 
           <div className="w-full overflow-x-auto px-3">
-            <div className="pb-3 flex items-center gap-2">
+            <div className="pb-3 pt-5 flex items-center gap-2">
               <CreateYearBtn 
                 employeeId={employeeId}
+                years={yearsData}
                 getYears={getYears}
+                currentYear={currentYear}
+                setCurrentYear={setCurrentYear}
               />
               <CreateMonthBtn 
                 employeeId={employeeId}

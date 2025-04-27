@@ -63,7 +63,7 @@ export default function DayRow({data, year, getDays, timeOff}){
                 </span>
                 </>}
             </div>
-            <div className="p-3 my-auto text-center md:w-[14.28%]">
+            <div className="p-3 pr-9 my-auto text-center md:w-[14.28%]">
                 {data.note ? 
                     <ShowNoteBtn note={data.note} /> 
                 : "......."}

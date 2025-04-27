@@ -3,7 +3,7 @@ import { Popover, PopoverButton, PopoverPanel } from "@headlessui/react";
 export default function DropdownMenu({button, menuStyle, panelStyle, children}){
     return(
     <div className={menuStyle}>
-        <Popover className="relative">
+        <Popover className="relative group">
             <PopoverButton className="outline-0">
                 {button}
             </PopoverButton>

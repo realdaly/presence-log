@@ -65,7 +65,7 @@ export default function CreateDayBtn({employeeId, year, month, groupInfo, getDay
     <>
         <button
             onClick={() => setIsOpen(true)}
-            className="flex items-center justify-center mt-7 gap-x-2 w-fit select-none bg-accent1 text-white font-bold px-3 py-1 rounded-full transition-all hover:text-accent1 hover:bg-white border border-accent1 disabled:hover:bg-comp disabled:bg-comp disabled:text-black disabled:opacity-50 disabled:border-comp" 
+            className="flex items-center justify-center gap-x-2 w-fit select-none bg-accent1 text-white font-bold px-3 py-1 rounded-full transition-all hover:text-accent1 hover:bg-white border border-accent1 disabled:hover:bg-comp disabled:bg-comp disabled:text-black disabled:opacity-50 disabled:border-comp" 
             disabled={!month}
         >   
             إضافة يوم +
