@@ -1,84 +1,6 @@
 import getDatabase from "@/utils/getDatabase";
-
-async function updateMonth(monthId, db) {
-  const result = await db.select(
-    `SELECT 
-      SUM(more_hours) AS total_more_hours, 
-      SUM(more_minutes) AS total_more_minutes, 
-      SUM(less_hours) AS total_less_hours, 
-      SUM(less_minutes) AS total_less_minutes
-    FROM day 
-    WHERE month_id = $1`,
-    [monthId]
-  );
-
-  const {
-    total_more_hours = 0,
-    total_more_minutes = 0,
-    total_less_hours = 0,
-    total_less_minutes = 0,
-  } = result[0] || {};
-
-  const normalized_more_hours = Math.floor(total_more_minutes / 60) + total_more_hours;
-  const normalized_more_minutes = total_more_minutes % 60;
-
-  const normalized_less_hours = Math.floor(total_less_minutes / 60) + total_less_hours;
-  const normalized_less_minutes = total_less_minutes % 60;
-
-  await db.execute(
-    `UPDATE month 
-     SET more_hours = $1, more_minutes = $2, 
-         less_hours = $3, less_minutes = $4 
-     WHERE id = $5`,
-    [
-      normalized_more_hours,
-      normalized_more_minutes,
-      normalized_less_hours,
-      normalized_less_minutes,
-      monthId,
-    ]
-  );
-}
-
-async function updateYear(yearId, db) {
-  const result = await db.select(
-    `SELECT 
-      SUM(more_hours) AS total_more_hours, 
-      SUM(more_minutes) AS total_more_minutes, 
-      SUM(less_hours) AS total_less_hours, 
-      SUM(less_minutes) AS total_less_minutes
-    FROM month 
-    WHERE year_id = $1`,
-    [yearId]
-  );
-
-  const {
-    total_more_hours = 0,
-    total_more_minutes = 0,
-    total_less_hours = 0,
-    total_less_minutes = 0,
-  } = result[0] || {};
-
-  const normalized_more_hours = Math.floor(total_more_minutes / 60) + total_more_hours;
-  const normalized_more_minutes = total_more_minutes % 60;
-
-  const normalized_less_hours = Math.floor(total_less_minutes / 60) + total_less_hours;
-  const normalized_less_minutes = total_less_minutes % 60;
-
-  await db.execute(
-    `UPDATE year 
-     SET more_hours = $1, more_minutes = $2, 
-         less_hours = $3, less_minutes = $4 
-     WHERE id = $5`,
-    [
-      normalized_more_hours,
-      normalized_more_minutes,
-      normalized_less_hours,
-      normalized_less_minutes,
-      yearId,
-    ]
-  );
-}
+import updateMonthAutomatically from "@/utils/profilepage/updateMonthAutomatically";
+import updateYearAutomatically from "@/utils/profilepage/updateYearAutomatically";
 
 export default async function createDay(
   title,
@@ -99,7 +21,7 @@ export default async function createDay(
   employeeId,
   monthId,
   yearId
-) {
+){
   const db = await getDatabase();
 
   let total_minutes = 0;
@@ -224,8 +146,8 @@ export default async function createDay(
       ]
     );
 
-    await updateMonth(monthId, db);
-    await updateYear(yearId, db);
+    await updateMonthAutomatically(monthId, db);
+    await updateYearAutomatically(yearId, db);
 
     await db.execute("COMMIT");
   } catch (error) {

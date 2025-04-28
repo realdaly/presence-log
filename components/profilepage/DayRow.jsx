@@ -1,15 +1,16 @@
 import DropdownMenu from "@/components/ui/DropdownMenu";
 import OptionsBtn from "@/components/ui/OptionsBtn";
 import DeleteDayBtn from "@/components/profilepage/DeleteDayBtn";
+import UpdateDayBtn from "@/components/profilepage/UpdateDayBtn";
 import ShowNoteBtn from "@/components/profilepage/ShowNoteBtn";
 
-export default function DayRow({data, year, getDays, timeOff}){
+export default function DayRow({data, year, month, getDays, groupInfo, timeOff}){
     return(
         <div className="flex flex-col justify-center md:flex-row border-b border-r border-l last:rounded-b-xl bg-white odd:bg-domI relative">
             <div className="p-3 my-auto text-center md:w-[14.28%] font-medium">
                 <div>{data.title}</div>
                 <div className="text-sm text-gray-500">
-                    {data.date_day}/{data.date_month}/{year}
+                    {data.date_day}/{data.date_month}/{year.title}
                 </div>
             </div>
             <div className="p-3 my-auto text-center md:w-[14.28%]">
@@ -74,6 +75,13 @@ export default function DayRow({data, year, getDays, timeOff}){
                 panelStyle="pl-5"
             >
                 <div className="bg-domI border rounded-lg overflow-hidden">
+                    <UpdateDayBtn 
+                        year={year}
+                        month={month}
+                        groupInfo={groupInfo}
+                        getDays={getDays}
+                        currentDay={data}
+                    />
                     <DeleteDayBtn 
                         currentDay={data}
                         getDays={getDays}

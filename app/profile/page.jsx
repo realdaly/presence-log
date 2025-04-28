@@ -111,7 +111,10 @@ export default function profile(){
         {isLoading && <Loader />}
         {!isLoading && 
           <div className="w-full overflow-x-auto px-3">
-            <div className="pb-3 pt-5 flex items-center gap-2">
+            <h1 className="text-xl font-bold py-3 pr-2">
+              {employeeName}
+            </h1>
+            <div className="pb-3 flex items-center gap-2">
               <CreateYearBtn 
                 employeeId={employeeId}
                 years={yearsData}
@@ -142,7 +145,9 @@ export default function profile(){
                 <DayRow 
                   key={item.id} 
                   data={item}
-                  year={currentYear.title}
+                  year={currentYear}
+                  month={currentMonth}
+                  groupInfo={groupInfo}
                   getDays={getDays}
                   timeOff={item.time_off}
                 />
