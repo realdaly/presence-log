@@ -122,7 +122,10 @@ export default function profile(){
               <CreateMonthBtn 
                 employeeId={employeeId}
                 year={currentYear}
+                months={monthsData}
                 getMonths={getMonths}
+                currentMonth={currentMonth}
+                setCurrentMonth={setCurrentMonth}
               />
               <CreateDayBtn 
                 employeeId={employeeId}

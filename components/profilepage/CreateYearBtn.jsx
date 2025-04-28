@@ -4,7 +4,6 @@ import Modal from "@/components/ui/Modal";
 import createYear from "@/utils/profilepage/createYear";
 import DropdownMenu from "@/components/ui/DropdownMenu";
 import { IoIosArrowDown } from "react-icons/io";
-import Link from "next/link";
 
 export default function CreateYearBtn({employeeId, years, getYears, currentYear, setCurrentYear}){
     let [isOpen, setIsOpen] = useState(false);
@@ -32,7 +31,7 @@ export default function CreateYearBtn({employeeId, years, getYears, currentYear,
         >   
             إضافة سنة +
         </button>}
-        {years.length > 0 && 
+        {years?.length > 0 && 
         <DropdownMenu
             button={
                 <div className="flex items-center justify-center gap-x-2 w-fit select-none bg-accent1 text-white font-bold px-3 pb-1 pt-1.5 rounded-full transition-all hover:text-accent1 hover:bg-white border border-accent1">
