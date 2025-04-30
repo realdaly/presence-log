@@ -50,7 +50,9 @@ export default function CreateMonthBtn({employeeId, year, months, getMonths, cur
                 <p 
                     onClick={() => setCurrentMonth(month)}
                     key={month.id}
-                    className="cursor-pointer px-5 py-1 text-white font-bold bg-accent1 first:rounded-t-2xl first:pt-2 last:rounded-b-2xl transition-all hover:text-accent1 hover:bg-white border border-accent1"
+                    className={`cursor-pointer px-5 py-1 text-white font-bold bg-accent1 first:rounded-t-2xl first:pt-2 last:rounded-b-2xl transition-all hover:text-accent1 hover:bg-white border border-accent1
+                        ${currentMonth.id == month.id ? "bg-white !text-accent1" : ""}    
+                    `}
                 >
                     {month.title}
                 </p>
