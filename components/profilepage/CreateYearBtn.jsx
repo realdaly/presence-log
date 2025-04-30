@@ -4,6 +4,7 @@ import Modal from "@/components/ui/Modal";
 import createYear from "@/utils/profilepage/createYear";
 import DropdownMenu from "@/components/ui/DropdownMenu";
 import { IoIosArrowDown } from "react-icons/io";
+import UpdateYearBtn from "@/components/profilepage/UpdateYearBtn";
 import DeleteYearBtn from "@/components/profilepage/DeleteYearBtn";
 import { useEffect, useRef } from "react";
 
@@ -132,6 +133,11 @@ export default function CreateYearBtn({employeeId, years, getYears, currentYear,
                 }}
             >
                 <div className="absolute bg-white border border-black shadow-md rounded-md min-w-28 overflow-hidden">
+                    <UpdateYearBtn 
+                        currentYear={targetYear}
+                        getYears={getYears}
+                        setRightClickMenu={setRightClickMenu}
+                    />
                     <DeleteYearBtn 
                         currentYear={targetYear}
                         getYears={getYears}
