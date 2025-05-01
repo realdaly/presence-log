@@ -4,8 +4,11 @@ import Modal from "@/components/ui/Modal";
 import createMonth from "@/utils/profilepage/createMonth";
 import DropdownMenu from "@/components/ui/DropdownMenu";
 import { IoIosArrowDown } from "react-icons/io";
-import DeleteMonthBtn from "@/components/profilepage/DeleteMonthBtn";
+import UpdateMonthModal from "@/components/profilepage/UpdateMonthModal";
+import DeleteMonthModal from "@/components/profilepage/DeleteMonthModal";
 import { useEffect, useRef } from "react";
+import { TbEditCircle } from "react-icons/tb";
+import { TiDelete } from "react-icons/ti";
 
 export default function CreateMonthBtn({employeeId, year, months, getMonths, currentMonth, setCurrentMonth}){
     let [isOpen, setIsOpen] = useState(false);
@@ -13,13 +16,15 @@ export default function CreateMonthBtn({employeeId, year, months, getMonths, cur
     let [rightClickMenu, setRightClickMenu] = useState(false);
     let [menuPosition, setMenuPosition] = useState();
     let [targetMonth, setTargetMonth] = useState({});
+    let [updateModal, setUpdateModal] = useState(false);
+    let [deleteModal, setDeleteModal] = useState(false);
     const menuRef = useRef();
 
     const handleMenu = (e, month) => {        
         e.preventDefault();
         setRightClickMenu(true);
         setMenuPosition({x: e.pageX, y: e.pageY});
-        setTargetMonth(month)
+        setTargetMonth(month);
     };
 
     // states for values
@@ -36,14 +41,15 @@ export default function CreateMonthBtn({employeeId, year, months, getMonths, cur
         }
     }
 
+    // event listener for closing context menu on click outside
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (menuRef.current && !menuRef.current.contains(event.target)) {
+            if(menuRef.current && !menuRef.current.contains(event.target)) {
                 setRightClickMenu(false);
             }
         };
     
-        if (rightClickMenu) {
+        if(rightClickMenu) {
             document.addEventListener("mousedown", handleClickOutside);
         }
     
@@ -131,14 +137,45 @@ export default function CreateMonthBtn({employeeId, year, months, getMonths, cur
                 }}
             >
                 <div className="absolute bg-white border border-black shadow-md rounded-md min-w-28 overflow-hidden">
-                    <DeleteMonthBtn 
-                        currentMonth={targetMonth}
-                        getMonths={getMonths}
-                        setRightClickMenu={setRightClickMenu}
-                    />
+                    {/* update button */}
+                    <button
+                        onClick={e => {
+                            e.stopPropagation();
+                            setUpdateModal(true);
+                        }}
+                        className="flex items-center justify-between w-full gap-x-3 p-1 pr-2 text-green-600 transition-all hover:bg-comp" 
+                    >   
+                        <p>تعديل</p>
+                        <TbEditCircle className="size-6" />
+                    </button>
+                    {/* delete button */}
+                    <button 
+                        onClick={e => {
+                            e.stopPropagation();
+                            setDeleteModal(true);
+                        }}
+                        className="flex items-center justify-between w-full gap-x-3 p-1 pr-2 text-danger transition-all hover:bg-comp"
+                    >
+                        <p>حذف</p>
+                        <TiDelete className="size-6" />
+                    </button>
                 </div>
             </div>
         )}
+        <UpdateMonthModal 
+            currentMonth={targetMonth}
+            getMonths={getMonths}
+            isOpen={updateModal}
+            setIsOpen={setUpdateModal}
+            setRightClickMenu={setRightClickMenu}
+        />
+        <DeleteMonthModal 
+            currentMonth={targetMonth}
+            getMonths={getMonths}
+            isOpen={deleteModal}
+            setIsOpen={setDeleteModal}
+            setRightClickMenu={setRightClickMenu}
+        />
     </>
     );
 }
