@@ -138,7 +138,7 @@ export default function profile(){
                 groupInfo={groupInfo}
               />
             </div>
-            <div className="min-w-full">
+            <div className="h-[calc(100vh-333px)] overflow-y-auto">
               <TableHeader />
               {daysData.map(item => (
                 yearsData.length > 0 && monthsData.length > 0 && daysData.length > 0 &&

@@ -130,7 +130,7 @@ export default function CreateMonthBtn({employeeId, year, months, getMonths, cur
         {rightClickMenu && (
             <div
                 ref={menuRef}
-                className="absolute z-10 mr-8"
+                className="absolute z-30 mr-8"
                 style={{
                     top: `${menuPosition.y}px`,
                     left: `${menuPosition.x}px`,

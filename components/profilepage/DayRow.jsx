@@ -6,15 +6,15 @@ import ShowNoteBtn from "@/components/profilepage/ShowNoteBtn";
 
 export default function DayRow({data, year, month, getDays, groupInfo, timeOff}){
     return(
-        <div className="border-b border-r border-l last:rounded-b-xl bg-white odd:bg-domI">
-            <div className="flex flex-col justify-center md:flex-row relative">
-                <div className="p-3 my-auto text-center md:w-[14.28%] font-medium">
+        <div className="border-b border-r border-l last:rounded-b-xl bg-white odd:bg-domI w-fit">
+            <div className="flex relative">
+                <div className="p-3 my-auto text-center w-40 font-medium">
                     <div>{data.title}</div>
                     <div className="text-sm text-gray-500">
                         {data.date_day}/{data.date_month}/{year.title}
                     </div>
                 </div>
-                <div className="p-3 my-auto text-center md:w-[14.28%]">
+                <div className="p-3 my-auto text-center w-56">
                     {timeOff != 1 && <>
                     الساعة 
                     <span className="font-bold px-1">{data.attend_hour}</span>
@@ -28,7 +28,7 @@ export default function DayRow({data, year, month, getDays, groupInfo, timeOff})
                     </span>
                     </>}
                 </div>
-                <div className="p-3 my-auto text-center md:w-[14.28%]">
+                <div className="p-3 my-auto text-center w-56">
                     {timeOff != 1 && <>
                     الساعة 
                     <span className="font-bold px-1">{data.leave_hour}</span>
@@ -37,7 +37,7 @@ export default function DayRow({data, year, month, getDays, groupInfo, timeOff})
                     دقيقة
                     </>}
                 </div>
-                <div className="p-3 my-auto text-center md:w-[14.28%]">
+                <div className="p-3 my-auto text-center w-56">
                     {timeOff != 1 && <>
                     <span className="font-bold px-1">{data.total_hours}</span>
                     ساعة و
@@ -45,7 +45,7 @@ export default function DayRow({data, year, month, getDays, groupInfo, timeOff})
                     دقيقة
                     </>}
                 </div>
-                <div className="p-3 my-auto text-center md:w-[14.28%]">
+                <div className="p-3 my-auto text-center w-56">
                     {timeOff != 1 && <>
                     <span className="px-3 py-1 rounded-full bg-green-100">
                         <span className="font-bold px-1">{data.more_hours}</span>
@@ -55,7 +55,7 @@ export default function DayRow({data, year, month, getDays, groupInfo, timeOff})
                     </span>
                     </>}
                 </div>
-                <div className="p-3 my-auto text-center md:w-[14.28%]">
+                <div className="p-3 my-auto text-center w-56">
                     {timeOff != 1 && <>
                     <span className="px-3 py-1 rounded-full bg-red-100">
                         <span className="font-bold px-1">{data.less_hours}</span>
@@ -65,7 +65,7 @@ export default function DayRow({data, year, month, getDays, groupInfo, timeOff})
                     </span>
                     </>}
                 </div>
-                <div className="p-3 pr-9 my-auto text-center md:w-[14.28%]">
+                <div className="p-3 my-auto text-center w-44">
                     {data.note ? 
                         <ShowNoteBtn note={data.note} /> 
                     : "......."}
@@ -73,7 +73,7 @@ export default function DayRow({data, year, month, getDays, groupInfo, timeOff})
                 <DropdownMenu
                     button={<OptionsBtn />}
                     menuStyle="absolute left-2 top-5"
-                    panelStyle="pl-5"
+                    panelStyle="pl-7"
                 >
                     <div className="bg-domI border rounded-lg overflow-hidden">
                         <UpdateDayBtn 
@@ -99,14 +99,14 @@ export default function DayRow({data, year, month, getDays, groupInfo, timeOff})
                     خروج عند الساعة
                     <span className="font-bold px-1">{data.exit_hour}</span>
                     و
-                    <span className="font-bold px-1">{data.exit_minutes}</span>
+                    <span className="font-bold px-1">{data.exit_minute}</span>
                     دقيقة
                 </span>
                 <span className="px-3 rounded-full bg-green-100">
                     عودة عند الساعة
                     <span className="font-bold px-1">{data.enter_hour}</span>
                     و
-                    <span className="font-bold px-1">{data.enter_minutes}</span>
+                    <span className="font-bold px-1">{data.enter_minute}</span>
                     دقيقة
                 </span>
             </div>}

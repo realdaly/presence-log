@@ -22,7 +22,7 @@ export default function UpdateDayBtn({year, month, groupInfo, getDays, currentDa
     let [enterMin, setEnterMin] = useState(currentDay?.time_off == 0 ? currentDay?.enter_minute : "");
     let [dateMonth, setDateMonth] = useState(currentDay?.date_month);
     let [dateDay, setDateDay] = useState(currentDay?.date_day);
-    let [note, setNote] = useState(currentDay?.note);
+    let [note, setNote] = useState(currentDay?.note ?? "");
 
     const submitFunc = async () => {
         if(title){
@@ -193,7 +193,7 @@ export default function UpdateDayBtn({year, month, groupInfo, getDays, currentDa
                                     className="px-4 py-2 bg-comp rounded-xl w-20 disabled:bg-black/50" 
                                     type="text"
                                     name="exit_hour"
-                                    value={exitHour}
+                                    value={exitHour ?? ""}
                                     onKeyDown={e => handleNumInput(e, setExitHour)}
                                     onChange={e => setExitHour(e.target.value)}
                                     maxLength={2}
@@ -204,7 +204,7 @@ export default function UpdateDayBtn({year, month, groupInfo, getDays, currentDa
                                     className="px-4 py-2 bg-comp rounded-xl w-20 disabled:bg-black/50" 
                                     type="text"
                                     name="exit_minute"
-                                    value={exitMin}
+                                    value={exitMin ?? ""}
                                     onKeyDown={e => handleNumInput(e, setExitMin)}
                                     onChange={e => setExitMin(e.target.value)}
                                     maxLength={2}
@@ -220,7 +220,7 @@ export default function UpdateDayBtn({year, month, groupInfo, getDays, currentDa
                                     className="px-4 py-2 bg-comp rounded-xl w-20 disabled:bg-black/50" 
                                     type="text"
                                     name="enter_hour"
-                                    value={enterHour}
+                                    value={enterHour ?? ""}
                                     onKeyDown={e => handleNumInput(e, setEnterHour)}
                                     onChange={e => setEnterHour(e.target.value)}
                                     maxLength={2}
@@ -231,7 +231,7 @@ export default function UpdateDayBtn({year, month, groupInfo, getDays, currentDa
                                     className="px-4 py-2 bg-comp rounded-xl w-20 disabled:bg-black/50" 
                                     type="text"
                                     name="enter_minute"
-                                    value={enterMin}
+                                    value={enterMin ?? ""}
                                     onKeyDown={e => handleNumInput(e, setEnterMin)}
                                     onChange={e => setEnterMin(e.target.value)}
                                     maxLength={2}
