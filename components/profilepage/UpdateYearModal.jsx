@@ -1,12 +1,9 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "@/components/ui/Modal";
 import updateYear from "@/utils/profilepage/updateYear";
-import { TbEditCircle } from "react-icons/tb";
 
-export default function UpdateYearBtn({currentYear, getYears, setRightClickMenu}){
-    let [isOpen, setIsOpen] = useState(false);
-
+export default function UpdateYearModal({currentYear, getYears, setRightClickMenu, isOpen, setIsOpen}){
     // states for values
     const [title, setTitle] = useState(currentYear?.title);
 
@@ -29,15 +26,11 @@ export default function UpdateYearBtn({currentYear, getYears, setRightClickMenu}
         setRightClickMenu(false);
     }
 
+    useEffect(() => {
+        setTitle(currentYear?.title || "");
+    }, [currentYear]);
+
     return(
-    <>
-        <button
-            onClick={() => setIsOpen(true)}
-            className="flex items-center justify-between w-full gap-x-3 p-1 pr-2 text-green-600 transition-all hover:bg-comp" 
-        >   
-            <p>تعديل</p>
-            <TbEditCircle className="size-6" />
-        </button>
         <Modal 
             title="تعديل السنة"
             sumbitLabel="تـــم"
@@ -65,6 +58,5 @@ export default function UpdateYearBtn({currentYear, getYears, setRightClickMenu}
                 <button type="submit" hidden />
             </form>
         </Modal>
-    </>
     );
 }

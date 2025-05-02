@@ -4,9 +4,11 @@ import Modal from "@/components/ui/Modal";
 import createYear from "@/utils/profilepage/createYear";
 import DropdownMenu from "@/components/ui/DropdownMenu";
 import { IoIosArrowDown } from "react-icons/io";
-import UpdateYearBtn from "@/components/profilepage/UpdateYearBtn";
-import DeleteYearBtn from "@/components/profilepage/DeleteYearBtn";
+import UpdateYearModal from "@/components/profilepage/UpdateYearModal";
+import DeleteYearModal from "@/components/profilepage/DeleteYearModal";
 import { useEffect, useRef } from "react";
+import { TbEditCircle } from "react-icons/tb";
+import { TiDelete } from "react-icons/ti";
 
 export default function CreateYearBtn({employeeId, years, getYears, currentYear, setCurrentYear}){
     let [isOpen, setIsOpen] = useState(false);
@@ -14,6 +16,8 @@ export default function CreateYearBtn({employeeId, years, getYears, currentYear,
     let [rightClickMenu, setRightClickMenu] = useState(false);
     let [menuPosition, setMenuPosition] = useState();
     let [targetYear, setTargetYear] = useState({});
+    let [updateModal, setUpdateModal] = useState(false);
+    let [deleteModal, setDeleteModal] = useState(false);
     const menuRef = useRef();
 
     const handleMenu = (e, year) => {        
@@ -122,7 +126,7 @@ export default function CreateYearBtn({employeeId, years, getYears, currentYear,
                 <button type="submit" hidden />
             </form>
         </Modal>
-        {/* mark right click menu */}
+        {/* right click menu */}
         {rightClickMenu && (
             <div
                 ref={menuRef}
@@ -133,19 +137,45 @@ export default function CreateYearBtn({employeeId, years, getYears, currentYear,
                 }}
             >
                 <div className="absolute bg-white border border-black shadow-md rounded-md min-w-28 overflow-hidden">
-                    <UpdateYearBtn 
-                        currentYear={targetYear}
-                        getYears={getYears}
-                        setRightClickMenu={setRightClickMenu}
-                    />
-                    <DeleteYearBtn 
-                        currentYear={targetYear}
-                        getYears={getYears}
-                        setRightClickMenu={setRightClickMenu}
-                    />
+                    {/* update button */}
+                    <button
+                        onClick={e => {
+                            e.stopPropagation();
+                            setUpdateModal(true);
+                        }}
+                        className="flex items-center justify-between w-full gap-x-3 p-1 pr-2 text-green-600 transition-all hover:bg-comp" 
+                    >   
+                        <p>تعديل</p>
+                        <TbEditCircle className="size-6" />
+                    </button>
+                    {/* delete button */}
+                    <button 
+                        onClick={e => {
+                            e.stopPropagation();
+                            setDeleteModal(true);
+                        }}
+                        className="flex items-center justify-between w-full gap-x-3 p-1 pr-2 text-danger transition-all hover:bg-comp"
+                    >
+                        <p>حذف</p>
+                        <TiDelete className="size-6" />
+                    </button>
                 </div>
             </div>
         )}
+        <UpdateYearModal 
+            currentYear={targetYear}
+            getYears={getYears}
+            isOpen={updateModal}
+            setIsOpen={setUpdateModal}
+            setRightClickMenu={setRightClickMenu}
+        />
+        <DeleteYearModal 
+            currentYear={targetYear}
+            getYears={getYears}
+            isOpen={deleteModal}
+            setIsOpen={setDeleteModal}
+            setRightClickMenu={setRightClickMenu}
+        />
     </>
     );
 }
