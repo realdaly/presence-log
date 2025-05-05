@@ -9,5 +9,5 @@ export default function TableHeader(){
             <div className="p-3 text-center w-56">مقدار النقيصة</div>
             <div className="p-3 text-center w-44">الملاحظات</div>
         </div>
-    )
+    );
 }

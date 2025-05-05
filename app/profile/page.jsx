@@ -13,6 +13,7 @@ import CreateYearBtn from "@/components/profilepage/CreateYearBtn";
 import CreateMonthBtn from "@/components/profilepage/CreateMonthBtn";
 import CreateDayBtn from "@/components/profilepage/CreateDayBtn";
 import DaysTable from "@/components/profilepage/DaysTable";
+import MiniTable from "@/components/profilepage/MiniTable";
 
 export default function profile(){
     const [groupId, setGroupId] = useState("");
@@ -145,6 +146,22 @@ export default function profile(){
               groupInfo={groupInfo}
               getDays={getDays}
             />
+            <div className="flex flex-wrap gap-4 pt-4">
+              <MiniTable 
+                label={`المجموع الشهري - ${currentMonth?.title}`}
+                moreHours={currentMonth?.more_hours}
+                moreMins={currentMonth?.more_minutes}
+                lessHours={currentMonth?.less_hours}
+                lessMins={currentMonth?.less_minutes}
+              />
+              <MiniTable 
+                label={`المجموع السنوي - ${currentYear?.title}`}
+                moreHours={currentYear?.more_hours}
+                moreMins={currentYear?.more_minutes}
+                lessHours={currentYear?.less_hours}
+                lessMins={currentYear?.less_minutes}
+              />
+            </div>
           </div>
         }
       </Layout>
