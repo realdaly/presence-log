@@ -1,6 +1,6 @@
 export default function TableHeader(){
     return(
-        <div className="sticky top-0 z-10 flex bg-gray-200 border-b font-bold rounded-t-xl w-fit border-l-2 border-gray-200">
+        <div className="sticky top-0 z-10 flex bg-gray-200 border-b border-l-2 rounded-t-xl font-bold w-fit">
             <div className="p-3 text-center w-40">اليوم</div>
             <div className="p-3 text-center w-56">وقت الحضور</div>
             <div className="p-3 text-center w-56">وقت الانصراف</div>

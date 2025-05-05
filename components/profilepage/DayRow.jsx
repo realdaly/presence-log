@@ -90,7 +90,7 @@ export default function DayRow({data, year, month, getDays, groupInfo, timeOff})
                     </div>
                 </DropdownMenu>
             </div>
-            {(data?.exit_hour && data?.exit_hour != "" && data?.exit_hour != 0) &&
+            {(data?.exit_hour != 0 && data?.exit_hour != undefined && data?.exit_hour != null && data?.exit_hour != "") &&
             <div className="pb-3 pr-5 flex items-center gap-x-3">
                 <span className="font-semibold bg-orange-200 bg-opacity-50 rounded-full px-3">
                     وقت الخروج الضمني:
