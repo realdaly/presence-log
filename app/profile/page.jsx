@@ -5,9 +5,6 @@ import { FaUserCircle } from "react-icons/fa";
 import Layout from "@/components/template/Layout";
 import Loader from "@/components/ui/Loader";
 import BreadcrumbBtn from "@/components/template/BreadcrumbBtn";
-import DayRow from "@/components/profilepage/DayRow";
-import TableHeader from "@/components/profilepage/TableHeader";
-import NoData from "@/components/ui/NoData";
 import readSingleGroup from "@/utils/homepage/readSingleGroup";
 import readYears from "@/utils/profilepage/readYears";
 import readMonths from "@/utils/profilepage/readMonths";
@@ -15,6 +12,7 @@ import readDays from "@/utils/profilepage/readDays";
 import CreateYearBtn from "@/components/profilepage/CreateYearBtn";
 import CreateMonthBtn from "@/components/profilepage/CreateMonthBtn";
 import CreateDayBtn from "@/components/profilepage/CreateDayBtn";
+import DaysTable from "@/components/profilepage/DaysTable";
 
 export default function profile(){
     const [groupId, setGroupId] = useState("");
@@ -138,26 +136,15 @@ export default function profile(){
                 groupInfo={groupInfo}
               />
             </div>
-            <div className="h-[calc(100vh-333px)] overflow-y-auto rounded-t-xl">
-              <TableHeader />
-              {daysData.map(item => (
-                yearsData.length > 0 && monthsData.length > 0 && daysData.length > 0 &&
-                <DayRow 
-                  key={item.id} 
-                  data={item}
-                  year={currentYear}
-                  month={currentMonth}
-                  groupInfo={groupInfo}
-                  getDays={getDays}
-                  timeOff={item.time_off}
-                />
-              ))}
-              {(yearsData.length == 0 || monthsData.length == 0 || daysData.length == 0) && (
-                <div className="pt-7">
-                    <NoData />
-                </div>
-              )}
-            </div>
+            <DaysTable 
+              daysData={daysData}
+              monthsData={monthsData}
+              yearsData={yearsData}
+              currentMonth={currentMonth}
+              currentYear={currentYear}
+              groupInfo={groupInfo}
+              getDays={getDays}
+            />
           </div>
         }
       </Layout>
