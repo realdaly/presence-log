@@ -109,11 +109,11 @@ export default function profile(){
       <Layout breadcrumb={breadcrumb}>
         {isLoading && <Loader />}
         {!isLoading && 
-          <div className="w-full overflow-x-auto px-3">
-            <h1 className="text-xl font-bold py-3 pr-2">
+          <div className="w-full overflow-x-auto">
+            <h1 className="text-xl font-bold py-3 pr-3">
               {employeeName}
             </h1>
-            <div className="pb-3 flex items-center gap-2">
+            <div className="pb-3 flex flex-wrap items-center gap-2 pr-3">
               <CreateYearBtn 
                 employeeId={employeeId}
                 years={yearsData}
@@ -146,7 +146,7 @@ export default function profile(){
               groupInfo={groupInfo}
               getDays={getDays}
             />
-            <div className="flex flex-wrap gap-4 pt-4">
+            <div className="flex flex-wrap gap-4 pt-4 px-3">
               <MiniTable 
                 label={`المجموع الشهري - ${currentMonth?.title}`}
                 moreHours={currentMonth?.more_hours}

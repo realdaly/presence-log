@@ -12,8 +12,8 @@ export default function DaysTable({
     getDays 
 }){
     return(
-        <div className="flex flex-col items-center">
-            <div className="h-[calc(100vh-333px)] overflow-y-auto rounded-t-xl">
+        <div className="flex justify-center">
+            <div className="h-[calc(100vh-333px)] overflow-y-auto xl:rounded-t-xl">
             <TableHeader />
             {daysData.map(item => (
                 yearsData.length > 0 && monthsData.length > 0 && daysData.length > 0 &&
