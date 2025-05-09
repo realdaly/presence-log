@@ -4,7 +4,7 @@ import Modal from "@/components/ui/Modal";
 import createDay from "@/utils/profilepage/createDay";
 import handleNumInput from "@/utils/handleNumInput";
 
-export default function CreateDayBtn({employeeId, year, month, groupInfo, getDays}){
+export default function CreateDayBtn({employeeId, year, month, groupInfo, getDays, getRemainingLeaveDays}){
     let [isOpen, setIsOpen] = useState(false);
 
     // states for values
@@ -46,6 +46,7 @@ export default function CreateDayBtn({employeeId, year, month, groupInfo, getDay
                 month.id, 
                 year.id
             );
+            await getRemainingLeaveDays();
             await getDays();
             setTitle("");
             setTimeOff(false);

@@ -2,10 +2,18 @@
 import { useEffect, useState } from "react";
 import Modal from "@/components/ui/Modal";
 import updateDay from "@/utils/profilepage/updateDay";
+import calcRemainingLeaveDays from "@/utils/profilepage/calcRemainingLeaveDays";
 import handleNumInput from "@/utils/handleNumInput";
 import { TbEditCircle } from "react-icons/tb";
 
-export default function UpdateDayBtn({year, month, groupInfo, getDays, currentDay}){
+export default function UpdateDayBtn({
+    year, 
+    month, 
+    groupInfo, 
+    getDays, 
+    currentDay, 
+    getRemainingLeaveDays
+}){
     let [isOpen, setIsOpen] = useState(false);
 
     // states for values
@@ -48,6 +56,7 @@ export default function UpdateDayBtn({year, month, groupInfo, getDays, currentDa
                 year.id
             );
             await getDays();
+            await getRemainingLeaveDays();
             setTitle(prev => prev);
             setTimeOff(prev => prev);
             setTimeOffValue(prev => prev);

@@ -9,7 +9,8 @@ export default function DaysTable({
     currentYear,
     currentMonth, 
     groupInfo, 
-    getDays 
+    getDays, 
+    getRemainingLeaveDays
 }){
     return(
         <div className="flex justify-center">
@@ -25,6 +26,7 @@ export default function DaysTable({
                     groupInfo={groupInfo}
                     getDays={getDays}
                     timeOff={item.time_off}
+                    getRemainingLeaveDays={getRemainingLeaveDays}
                 />
             ))}
             {(yearsData.length == 0 || monthsData.length == 0 || daysData.length == 0) && (

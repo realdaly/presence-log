@@ -9,6 +9,7 @@ import readSingleGroup from "@/utils/homepage/readSingleGroup";
 import readYears from "@/utils/profilepage/readYears";
 import readMonths from "@/utils/profilepage/readMonths";
 import readDays from "@/utils/profilepage/readDays";
+import calcRemainingLeaveDays from "@/utils/profilepage/calcRemainingLeaveDays";
 import CreateYearBtn from "@/components/profilepage/CreateYearBtn";
 import CreateMonthBtn from "@/components/profilepage/CreateMonthBtn";
 import CreateDayBtn from "@/components/profilepage/CreateDayBtn";
@@ -22,6 +23,7 @@ export default function profile(){
     const [employeeName, setEmployeeName] = useState("");
 
     const [isLoading, setIsLoading] = useState(true);
+    const [remainingLeaveDays, setRemainingLeaveDays] = useState("");
     const [groupInfo, setGroupInfo] = useState({});
     const [yearsData, setYearsData] = useState([]);
     const [monthsData, setMonthsData] = useState([]);
@@ -46,6 +48,10 @@ export default function profile(){
         </BreadcrumbBtn>
       </>
     );
+
+    const getRemainingLeaveDays = async () => {
+      await calcRemainingLeaveDays(employeeId, setRemainingLeaveDays);
+    }
 
     const getGroupInfo = async () => {
       const fetchedGroupInfo = await readSingleGroup(groupId);      
@@ -80,11 +86,12 @@ export default function profile(){
       setEmployeeId(searchParams.get("eid"));
       setEmployeeName(searchParams.get("ename"));
     }, []);
-
+    
     useEffect(() => {
       if(employeeId){
         getGroupInfo();
         getYears();
+        getRemainingLeaveDays();
         setIsLoading(false);
       }
     }, [employeeId]);
@@ -135,6 +142,7 @@ export default function profile(){
                 month={currentMonth}
                 getDays={getDays}
                 groupInfo={groupInfo}
+                getRemainingLeaveDays={getRemainingLeaveDays}
               />
             </div>
             <DaysTable 
@@ -145,7 +153,9 @@ export default function profile(){
               currentYear={currentYear}
               groupInfo={groupInfo}
               getDays={getDays}
+              getRemainingLeaveDays={getRemainingLeaveDays}
             />
+            {(currentMonth) && 
             <div className="flex flex-wrap gap-4 pt-4 px-3">
               <MiniTable 
                 label={`المجموع الشهري - ${currentMonth?.title}`}
@@ -161,7 +171,15 @@ export default function profile(){
                 lessHours={currentYear?.less_hours}
                 lessMins={currentYear?.less_minutes}
               />
-            </div>
+              <div>
+                <div className="p-3 text-center bg-gray-200 border-b border-l-2 rounded-t-xl font-bold">
+                  متبقي الإجازات للموظف
+                </div>
+                <div className="border-b border-r border-l rounded-b-xl bg-white p-3 font-bold text-center">
+                  {remainingLeaveDays}
+                </div>
+              </div>
+            </div>}
           </div>
         }
       </Layout>

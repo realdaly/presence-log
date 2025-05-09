@@ -4,7 +4,15 @@ import DeleteDayBtn from "@/components/profilepage/DeleteDayBtn";
 import UpdateDayBtn from "@/components/profilepage/UpdateDayBtn";
 import ShowNoteBtn from "@/components/profilepage/ShowNoteBtn";
 
-export default function DayRow({data, year, month, getDays, groupInfo, timeOff}){
+export default function DayRow({
+    data, 
+    year, 
+    month, 
+    getDays, 
+    groupInfo, 
+    timeOff,
+    getRemainingLeaveDays
+}){
     return(
         <div className="border-b border-r border-l last:rounded-b-xl bg-white odd:bg-domI w-fit">
             <div className="flex relative">
@@ -82,10 +90,12 @@ export default function DayRow({data, year, month, getDays, groupInfo, timeOff})
                             groupInfo={groupInfo}
                             getDays={getDays}
                             currentDay={data}
+                            getRemainingLeaveDays={getRemainingLeaveDays}
                         />
                         <DeleteDayBtn 
                             currentDay={data}
                             getDays={getDays}
+                            getRemainingLeaveDays={getRemainingLeaveDays}
                         />
                     </div>
                 </DropdownMenu>

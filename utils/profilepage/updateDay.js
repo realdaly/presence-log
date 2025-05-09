@@ -21,7 +21,7 @@ export default async function updateDay(
     required_minutes,
     monthId,
     yearId
-  ) {
+  ){
     const db = await getDatabase();
   
     let total_minutes = 0;
@@ -135,6 +135,7 @@ export default async function updateDay(
       await updateYearAutomatically(yearId, db);
   
       await db.execute("COMMIT");
+
     } catch (error) {
       await db.execute("ROLLBACK");
       throw error;
