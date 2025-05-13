@@ -44,6 +44,8 @@ export default async function calcTotalMoreLess(employeeId){
     const hours = Math.floor(absMinutes / 60);
     const minutes = absMinutes % 60;
     
+    console.log("last line before return has ran!");
+    
     return {
       more: {
         hours: 0,

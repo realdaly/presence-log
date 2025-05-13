@@ -97,8 +97,12 @@ export default function DayRow({
                             getRemainingLeaveDays={getRemainingLeaveDays}
                         />
                         <DeleteDayBtn 
+                            year={year}
+                            month={month}
                             currentDay={data}
                             getDays={getDays}
+                            updateCurrentDateInfo={updateCurrentDateInfo}
+                            getTotalMoreLess={getTotalMoreLess}
                             getRemainingLeaveDays={getRemainingLeaveDays}
                         />
                     </div>

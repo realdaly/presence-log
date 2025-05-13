@@ -160,6 +160,8 @@ export default function profile(){
                 month={currentMonth}
                 getDays={getDays}
                 groupInfo={groupInfo}
+                updateCurrentDateInfo={updateCurrentDateInfo}
+                getTotalMoreLess={getTotalMoreLess}
                 getRemainingLeaveDays={getRemainingLeaveDays}
               />
             </div>
