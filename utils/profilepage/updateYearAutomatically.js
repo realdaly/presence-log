@@ -25,8 +25,10 @@ export default async function updateYearAutomatically(yearId, db) {
 
   await db.execute(
     `UPDATE year 
-     SET more_hours = $1, more_minutes = $2, 
-         less_hours = $3, less_minutes = $4 
+      SET more_hours = $1, 
+      more_minutes = $2, 
+      less_hours = $3, 
+      less_minutes = $4 
      WHERE id = $5`,
     [
       normalized_more_hours,

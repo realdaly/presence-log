@@ -10,7 +10,9 @@ export default function DayRow({
     month, 
     getDays, 
     groupInfo, 
-    timeOff,
+    timeOff, 
+    updateCurrentDateInfo, 
+    getTotalMoreLess, 
     getRemainingLeaveDays
 }){
     return(
@@ -90,6 +92,8 @@ export default function DayRow({
                             groupInfo={groupInfo}
                             getDays={getDays}
                             currentDay={data}
+                            updateCurrentDateInfo={updateCurrentDateInfo}
+                            getTotalMoreLess={getTotalMoreLess}
                             getRemainingLeaveDays={getRemainingLeaveDays}
                         />
                         <DeleteDayBtn 

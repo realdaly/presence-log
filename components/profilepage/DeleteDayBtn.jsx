@@ -3,12 +3,13 @@ import Modal from "@/components/ui/Modal";
 import { TiDelete } from "react-icons/ti";
 import deleteDay from "@/utils/profilepage/deleteDay";
 
-export default function DeleteDayBtn({currentDay, getDays, getRemainingLeaveDays}){
+export default function DeleteDayBtn({currentDay, getDays, getTotalMoreLess, getRemainingLeaveDays}){
     let [isOpen, setIsOpen] = useState(false);
 
     const submitFunc = async () => {
         setIsOpen(false);
         await deleteDay(currentDay.id);
+        await getTotalMoreLess();
         await getRemainingLeaveDays();
         await getDays();
     }

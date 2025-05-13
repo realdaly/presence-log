@@ -10,6 +10,8 @@ export default function DaysTable({
     currentMonth, 
     groupInfo, 
     getDays, 
+    updateCurrentDateInfo, 
+    getTotalMoreLess, 
     getRemainingLeaveDays
 }){
     return(
@@ -26,6 +28,8 @@ export default function DaysTable({
                     groupInfo={groupInfo}
                     getDays={getDays}
                     timeOff={item.time_off}
+                    updateCurrentDateInfo={updateCurrentDateInfo}
+                    getTotalMoreLess={getTotalMoreLess}
                     getRemainingLeaveDays={getRemainingLeaveDays}
                 />
             ))}

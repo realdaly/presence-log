@@ -8,7 +8,10 @@ import BreadcrumbBtn from "@/components/template/BreadcrumbBtn";
 import readSingleGroup from "@/utils/homepage/readSingleGroup";
 import readYears from "@/utils/profilepage/readYears";
 import readMonths from "@/utils/profilepage/readMonths";
+import readSingleYear from "@/utils/profilepage/readSingleYear";
+import readSingleMonth from "@/utils/profilepage/readSingleMonth";
 import readDays from "@/utils/profilepage/readDays";
+import calcTotalMoreLess from "@/utils/profilepage/calcTotalMoreLess";
 import calcRemainingLeaveDays from "@/utils/profilepage/calcRemainingLeaveDays";
 import CreateYearBtn from "@/components/profilepage/CreateYearBtn";
 import CreateMonthBtn from "@/components/profilepage/CreateMonthBtn";
@@ -23,6 +26,7 @@ export default function profile(){
     const [employeeName, setEmployeeName] = useState("");
 
     const [isLoading, setIsLoading] = useState(true);
+    const [totalMoreLess, setTotalMoreLess] = useState({});
     const [remainingLeaveDays, setRemainingLeaveDays] = useState("");
     const [groupInfo, setGroupInfo] = useState({});
     const [yearsData, setYearsData] = useState([]);
@@ -49,8 +53,14 @@ export default function profile(){
       </>
     );
 
+    const getTotalMoreLess = async () => {
+      const calculatedMoreLess = await calcTotalMoreLess(employeeId);
+      setTotalMoreLess(calculatedMoreLess);
+    }
+
     const getRemainingLeaveDays = async () => {
-      await calcRemainingLeaveDays(employeeId, setRemainingLeaveDays);
+      const calculatedRemainingDays = await calcRemainingLeaveDays(employeeId);
+      setRemainingLeaveDays(calculatedRemainingDays);
     }
 
     const getGroupInfo = async () => {
@@ -74,6 +84,13 @@ export default function profile(){
       setMonthsData(fetchedMonths);
     };
 
+    const updateCurrentDateInfo = async () => {
+      const fetchedMonth = await readSingleMonth(currentMonth.id);   
+      const fetchedYear = await readSingleYear(currentYear.id);   
+      setCurrentMonth(fetchedMonth);
+      setCurrentYear(fetchedYear);
+    };
+
     const getDays = async () => {
       const fetchedDays = await readDays(employeeId, currentMonth.id, currentYear.id);      
       setDaysData(fetchedDays);
@@ -91,6 +108,7 @@ export default function profile(){
       if(employeeId){
         getGroupInfo();
         getYears();
+        getTotalMoreLess();
         getRemainingLeaveDays();
         setIsLoading(false);
       }
@@ -153,6 +171,8 @@ export default function profile(){
               currentYear={currentYear}
               groupInfo={groupInfo}
               getDays={getDays}
+              updateCurrentDateInfo={updateCurrentDateInfo}
+              getTotalMoreLess={getTotalMoreLess}
               getRemainingLeaveDays={getRemainingLeaveDays}
             />
             {(currentMonth) && 
@@ -171,11 +191,18 @@ export default function profile(){
                 lessHours={currentYear?.less_hours}
                 lessMins={currentYear?.less_minutes}
               />
+              <MiniTable 
+                label={`المجموع التراكمي للسنوات`}
+                moreHours={totalMoreLess.more.hours}
+                moreMins={totalMoreLess.more.minutes}
+                lessHours={totalMoreLess.less.hours}
+                lessMins={totalMoreLess.less.minutes}
+              />
               <div>
                 <div className="p-3 text-center bg-gray-200 border-b border-l-2 rounded-t-xl font-bold">
                   متبقي الإجازات للموظف
                 </div>
-                <div className="border-b border-r border-l rounded-b-xl bg-white p-3 font-bold text-center">
+                <div className="border-b border-r border-l rounded-b-xl bg-white p-3 font-bold text-xl text-center">
                   {remainingLeaveDays}
                 </div>
               </div>

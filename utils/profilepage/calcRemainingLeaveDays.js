@@ -1,6 +1,6 @@
 import getDatabase from "@/utils/getDatabase";
 
-export default async function calcRemainingLeaveDays(employeeId, setRemainingLeaveDays){
+export default async function calcRemainingLeaveDays(employeeId){
   const db = await getDatabase();
   // get the total leave days set by the admin
   const employee = await db.select(
@@ -23,6 +23,5 @@ export default async function calcRemainingLeaveDays(employeeId, setRemainingLea
   const usedLeaveDays = result[0]?.count;
 
   // return remaining leave days
-  const remainingDays =  (parseInt(totalLeaveDays) - parseInt(usedLeaveDays)) || 0;
-  setRemainingLeaveDays(remainingDays);
+  return (parseInt(totalLeaveDays) - parseInt(usedLeaveDays)) || 0;
 }
