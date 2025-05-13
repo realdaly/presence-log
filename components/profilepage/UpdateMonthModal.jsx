@@ -3,7 +3,16 @@ import Modal from "@/components/ui/Modal";
 import updateMonth from "@/utils/profilepage/updateMonth";
 import { useEffect, useState } from "react";
 
-export default function UpdateMonthModal({currentMonth, getMonths, setRightClickMenu, isOpen, setIsOpen}){
+export default function UpdateMonthModal({
+    currentMonth, 
+    getMonths, 
+    setRightClickMenu, 
+    isOpen, 
+    setIsOpen, 
+    updateCurrentDateInfo, 
+    getTotalMoreLess, 
+    getRemainingLeaveDays
+}){
     // states for values
     let [title, setTitle] = useState("");
     
@@ -12,6 +21,9 @@ export default function UpdateMonthModal({currentMonth, getMonths, setRightClick
             setIsOpen(false);
             await updateMonth(title, currentMonth?.id);
             await getMonths();
+            await updateCurrentDateInfo();
+            await getTotalMoreLess();
+            await getRemainingLeaveDays();
             setTitle("");
             closeFunc();
         } else {

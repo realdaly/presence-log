@@ -1,11 +1,23 @@
 import Modal from "@/components/ui/Modal";
 import deleteMonth from "@/utils/profilepage/deleteMonth";
 
-export default function DeleteMonthModal({currentMonth, getMonths, setRightClickMenu, isOpen, setIsOpen}){
+export default function DeleteMonthModal({
+    currentMonth, 
+    getMonths, 
+    setRightClickMenu, 
+    isOpen, 
+    setIsOpen, 
+    updateCurrentDateInfo, 
+    getTotalMoreLess, 
+    getRemainingLeaveDays
+}){
     const submitFunc = async () => {
         setIsOpen(false);
         await deleteMonth(currentMonth?.id)
         await getMonths();
+        await updateCurrentDateInfo();
+        await getTotalMoreLess();
+        await getRemainingLeaveDays();
         closeFunc();
     }
 

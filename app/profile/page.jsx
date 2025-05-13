@@ -63,6 +63,15 @@ export default function profile(){
       setRemainingLeaveDays(calculatedRemainingDays);
     }
 
+    const updateCurrentDateInfo = async () => {
+      const fetchedMonth = await readSingleMonth(currentMonth.id);   
+      const fetchedYear = await readSingleYear(currentYear.id);
+      if(fetchedMonth && fetchedYear){
+        setCurrentMonth(fetchedMonth);
+        setCurrentYear(fetchedYear);
+      }      
+    }
+
     const getGroupInfo = async () => {
       const fetchedGroupInfo = await readSingleGroup(groupId);      
       setGroupInfo(fetchedGroupInfo);
@@ -82,19 +91,12 @@ export default function profile(){
         setCurrentMonth(fetchedMonths[0]);
       }
       setMonthsData(fetchedMonths);
-    };
-
-    const updateCurrentDateInfo = async () => {
-      const fetchedMonth = await readSingleMonth(currentMonth.id);   
-      const fetchedYear = await readSingleYear(currentYear.id);   
-      setCurrentMonth(fetchedMonth);
-      setCurrentYear(fetchedYear);
-    };
+    }
 
     const getDays = async () => {
       const fetchedDays = await readDays(employeeId, currentMonth.id, currentYear.id);      
       setDaysData(fetchedDays);
-    };
+    }
 
     useEffect(() => {
       const searchParams = new URLSearchParams(window.location.search);
@@ -145,6 +147,9 @@ export default function profile(){
                 getYears={getYears}
                 currentYear={currentYear}
                 setCurrentYear={setCurrentYear}
+                updateCurrentDateInfo={updateCurrentDateInfo}
+                getTotalMoreLess={getTotalMoreLess}
+                getRemainingLeaveDays={getRemainingLeaveDays}
               />
               <CreateMonthBtn 
                 employeeId={employeeId}
@@ -153,6 +158,9 @@ export default function profile(){
                 getMonths={getMonths}
                 currentMonth={currentMonth}
                 setCurrentMonth={setCurrentMonth}
+                updateCurrentDateInfo={updateCurrentDateInfo}
+                getTotalMoreLess={getTotalMoreLess}
+                getRemainingLeaveDays={getRemainingLeaveDays}
               />
               <CreateDayBtn 
                 employeeId={employeeId}

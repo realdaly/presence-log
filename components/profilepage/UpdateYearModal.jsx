@@ -3,7 +3,16 @@ import { useEffect, useState } from "react";
 import Modal from "@/components/ui/Modal";
 import updateYear from "@/utils/profilepage/updateYear";
 
-export default function UpdateYearModal({currentYear, getYears, setRightClickMenu, isOpen, setIsOpen}){
+export default function UpdateYearModal({
+    currentYear, 
+    getYears, 
+    setRightClickMenu, 
+    isOpen, 
+    setIsOpen, 
+    updateCurrentDateInfo, 
+    getTotalMoreLess, 
+    getRemainingLeaveDays
+}){
     // states for values
     const [title, setTitle] = useState(currentYear?.title);
 
@@ -13,6 +22,9 @@ export default function UpdateYearModal({currentYear, getYears, setRightClickMen
 
             await updateYear(title, currentYear?.id);
             await getYears();
+            await updateCurrentDateInfo();
+            await getTotalMoreLess();
+            await getRemainingLeaveDays();
             closeFunc();
 
             // reset states to previous values

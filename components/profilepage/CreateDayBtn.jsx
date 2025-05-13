@@ -52,8 +52,8 @@ export default function CreateDayBtn({
                 groupInfo.required_hours, 
                 groupInfo.required_minutes, 
                 employeeId, 
-                month.id, 
-                year.id
+                month?.id, 
+                year?.id
             );
             await getDays();
             await updateCurrentDateInfo();
@@ -96,7 +96,7 @@ export default function CreateDayBtn({
             إضافة يوم +
         </button>
         <Modal 
-            title={`إضافة يوم إلى ${month.title}`}
+            title={`إضافة يوم إلى ${month?.title}`}
             sumbitLabel="إضافة"
             isOpen={isOpen}
             setIsOpen={setIsOpen}

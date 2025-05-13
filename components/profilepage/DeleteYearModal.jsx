@@ -1,11 +1,23 @@
 import Modal from "@/components/ui/Modal";
 import deleteYear from "@/utils/profilepage/deleteYear";
 
-export default function DeleteYearModal({currentYear, getYears, setRightClickMenu, isOpen, setIsOpen}){
+export default function DeleteYearModal({
+    currentYear, 
+    getYears, 
+    setRightClickMenu, 
+    isOpen, 
+    setIsOpen,
+    updateCurrentDateInfo, 
+    getTotalMoreLess, 
+    getRemainingLeaveDays
+}){
     const submitFunc = async () => {
         setIsOpen(false);
         await deleteYear(currentYear.id);
         await getYears();
+        await updateCurrentDateInfo();
+        await getTotalMoreLess();
+        await getRemainingLeaveDays();
         closeFunc();
     }
 

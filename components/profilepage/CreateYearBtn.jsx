@@ -10,7 +10,16 @@ import { useEffect, useRef } from "react";
 import { TbEditCircle } from "react-icons/tb";
 import { TiDelete } from "react-icons/ti";
 
-export default function CreateYearBtn({employeeId, years, getYears, currentYear, setCurrentYear}){
+export default function CreateYearBtn({
+    employeeId, 
+    years, 
+    getYears, 
+    currentYear, 
+    setCurrentYear, 
+    updateCurrentDateInfo, 
+    getTotalMoreLess, 
+    getRemainingLeaveDays
+}){
     let [isOpen, setIsOpen] = useState(false);
 
     let [rightClickMenu, setRightClickMenu] = useState(false);
@@ -71,7 +80,7 @@ export default function CreateYearBtn({employeeId, years, getYears, currentYear,
             button={
                 <div className="flex items-center justify-center gap-x-2 w-fit select-none bg-accent1 text-white font-bold px-3 pb-1 pt-1.5 rounded-full transition-all hover:text-accent1 hover:bg-white border border-accent1">
                     <span>
-                        {currentYear.title}
+                        {currentYear?.title}
                     </span>
                     <IoIosArrowDown 
                         className="transition-all group-data-[open]:rotate-180"
@@ -86,7 +95,7 @@ export default function CreateYearBtn({employeeId, years, getYears, currentYear,
                     onContextMenu={e => handleMenu(e, year)}
                     key={year.id}
                     className={`cursor-pointer text-center py-1 text-white font-bold bg-accent1 first:rounded-t-2xl first:pt-2 last:rounded-b-2xl transition-all hover:text-accent1 hover:bg-white border border-accent1 
-                        ${currentYear.id == year.id ? "bg-white !text-accent1" : ""}
+                        ${currentYear?.id == year.id ? "bg-white !text-accent1" : ""}
                     `}
                 >
                     <p>
@@ -168,6 +177,9 @@ export default function CreateYearBtn({employeeId, years, getYears, currentYear,
             isOpen={updateModal}
             setIsOpen={setUpdateModal}
             setRightClickMenu={setRightClickMenu}
+            updateCurrentDateInfo={updateCurrentDateInfo}
+            getTotalMoreLess={getTotalMoreLess}
+            getRemainingLeaveDays={getRemainingLeaveDays}
         />
         <DeleteYearModal 
             currentYear={targetYear}
@@ -175,6 +187,9 @@ export default function CreateYearBtn({employeeId, years, getYears, currentYear,
             isOpen={deleteModal}
             setIsOpen={setDeleteModal}
             setRightClickMenu={setRightClickMenu}
+            updateCurrentDateInfo={updateCurrentDateInfo}
+            getTotalMoreLess={getTotalMoreLess}
+            getRemainingLeaveDays={getRemainingLeaveDays}
         />
     </>
     );

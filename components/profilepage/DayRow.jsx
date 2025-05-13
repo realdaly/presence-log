@@ -21,7 +21,7 @@ export default function DayRow({
                 <div className="p-3 my-auto text-center w-40 font-medium">
                     <div>{data.title}</div>
                     <div className="text-sm text-gray-500">
-                        {data.date_day}/{data.date_month}/{year.title}
+                        {data.date_day}/{data.date_month}/{year?.title}
                     </div>
                 </div>
                 <div className="p-3 my-auto text-center w-56">
