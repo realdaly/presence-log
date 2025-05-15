@@ -97,7 +97,7 @@ export default function UpdateDayBtn({
             <TbEditCircle className="size-6" />
         </button>
         <Modal 
-            title={`تعديل اليوم ${currentDay.title}`}
+            title="تعديل اليوم"
             sumbitLabel="تـــم"
             isOpen={isOpen}
             setIsOpen={setIsOpen}

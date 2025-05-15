@@ -156,6 +156,7 @@ export default function profile(){
                 year={currentYear}
                 months={monthsData}
                 getMonths={getMonths}
+                getYears={getYears}
                 currentMonth={currentMonth}
                 setCurrentMonth={setCurrentMonth}
                 updateCurrentDateInfo={updateCurrentDateInfo}

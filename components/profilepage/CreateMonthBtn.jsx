@@ -15,6 +15,7 @@ export default function CreateMonthBtn({
     year, 
     months, 
     getMonths, 
+    getYears, 
     currentMonth, 
     setCurrentMonth, 
     updateCurrentDateInfo, 
@@ -174,6 +175,7 @@ export default function CreateMonthBtn({
         )}
         <UpdateMonthModal 
             currentMonth={targetMonth}
+            yearId={year.id}
             getMonths={getMonths}
             isOpen={updateModal}
             setIsOpen={setUpdateModal}
@@ -184,7 +186,9 @@ export default function CreateMonthBtn({
         />
         <DeleteMonthModal 
             currentMonth={targetMonth}
+            yearId={year.id}
             getMonths={getMonths}
+            getYears={getYears}
             isOpen={deleteModal}
             setIsOpen={setDeleteModal}
             setRightClickMenu={setRightClickMenu}
