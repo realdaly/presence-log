@@ -24,6 +24,8 @@ export default async function initDatabase() {
       "name" VARCHAR(255) DEFAULT 'موظف بدون اسم',
       "image" VARCHAR(255) DEFAULT NULL,
       "annual_leave_days" INTEGER DEFAULT 23,
+      "absence_days" INTEGER DEFAULT 0,
+      "lwop_days" INTEGER DEFAULT 0,
       "order" INTEGER DEFAULT 0,
       "group_id" INTEGER DEFAULT NULL,
       FOREIGN KEY ("group_id") REFERENCES "group" ("id") ON DELETE CASCADE

@@ -18,6 +18,7 @@ import CreateMonthBtn from "@/components/profilepage/CreateMonthBtn";
 import CreateDayBtn from "@/components/profilepage/CreateDayBtn";
 import DaysTable from "@/components/profilepage/DaysTable";
 import MiniTable from "@/components/profilepage/MiniTable";
+import Statistics from "@/components/profilepage/Statistics";
 
 export default function profile(){
     const [groupId, setGroupId] = useState("");
@@ -209,14 +210,9 @@ export default function profile(){
                 lessHours={totalMoreLess.less.hours}
                 lessMins={totalMoreLess.less.minutes}
               />
-              <div>
-                <div className="p-3 text-center bg-gray-200 border-b border-l-2 rounded-t-xl font-bold">
-                  متبقي الإجازات للموظف
-                </div>
-                <div className="border-b border-r border-l rounded-b-xl bg-white p-3 font-bold text-xl text-center">
-                  {remainingLeaveDays}
-                </div>
-              </div>
+              <Statistics
+                remainingLeaveDays={remainingLeaveDays}
+              />
             </div>}
           </div>
         }

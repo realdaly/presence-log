@@ -8,7 +8,7 @@ export default async function calcRemainingLeaveDays(employeeId){
     [employeeId]
   );
 
-  if (!employee) {
+  if (!employee){
     throw new Error(`Employee with id ${employeeId} not found`);
   }
 
@@ -20,8 +20,8 @@ export default async function calcRemainingLeaveDays(employeeId){
     [employeeId]
   );
 
-  const usedLeaveDays = result[0]?.count;
+  const usedLeaveDays = parseInt(result[0]?.count) || 0;
 
-  // return remaining leave days
-  return (parseInt(totalLeaveDays) - parseInt(usedLeaveDays)) || 0;
+  // return remaining leave days, but never less than 0
+  return Math.max(totalLeaveDays - usedLeaveDays, 0);
 }
