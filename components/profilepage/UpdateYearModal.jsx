@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import Modal from "@/components/ui/Modal";
 import handleNumInput from "@/utils/handleNumInput";
+import handleBoundedNumInput from "@/utils/handleBoundedNumInput";
 import updateYear from "@/utils/profilepage/updateYear";
 
 export default function UpdateYearModal({
@@ -91,7 +92,9 @@ export default function UpdateYearModal({
                                 type="text"
                                 name="more_hours"
                                 value={moreHours}
-                                onKeyDown={e => handleNumInput(e, setMoreHours)}
+                                onKeyDown={e => 
+                                    handleBoundedNumInput(e, setMoreHours, parseInt(currentYear.more_hours, 10))
+                                }
                                 onChange={e => setMoreHours(e.target.value)}
                                 maxLength={2}
                             />

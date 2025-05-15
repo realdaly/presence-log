@@ -15,4 +15,4 @@ export default function handleNumInput(e, setValue) {
     setTimeout(() => {
       setValue(e.target.value ?? "");
     }, 0);
-}  
+}

@@ -2,6 +2,7 @@
 import Modal from "@/components/ui/Modal";
 import updateMonth from "@/utils/profilepage/updateMonth";
 import handleNumInput from "@/utils/handleNumInput";
+import handleBoundedNumInput from "@/utils/handleBoundedNumInput";
 import { useEffect, useState } from "react";
 
 export default function UpdateMonthModal({
@@ -39,7 +40,7 @@ export default function UpdateMonthModal({
             setTitle(prev => prev);
             setMoreHours(prev => prev);
             setMoreMins(prev => prev);
-            
+
             closeFunc();
         } else {
             alert("يجب ملئ جميع الحقول.");
@@ -92,7 +93,9 @@ export default function UpdateMonthModal({
                                 type="text"
                                 name="more_hours"
                                 value={moreHours}
-                                onKeyDown={e => handleNumInput(e, setMoreHours)}
+                                onKeyDown={e => 
+                                    handleBoundedNumInput(e, setMoreHours, parseInt(currentMonth.more_hours, 10))
+                                }
                                 onChange={e => setMoreHours(e.target.value)}
                                 maxLength={2}
                             />
