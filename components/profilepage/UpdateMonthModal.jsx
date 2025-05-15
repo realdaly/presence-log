@@ -34,7 +34,12 @@ export default function UpdateMonthModal({
             await updateCurrentDateInfo();
             await getTotalMoreLess();
             await getRemainingLeaveDays();
-            setTitle("");
+
+            // reset states to previous values
+            setTitle(prev => prev);
+            setMoreHours(prev => prev);
+            setMoreMins(prev => prev);
+            
             closeFunc();
         } else {
             alert("يجب ملئ جميع الحقول.");

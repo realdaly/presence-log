@@ -12,7 +12,7 @@ export default async function updateMonth(
 
   await db.execute("BEGIN");
   try {
-    // Step 1: Update title and more time
+    // update title and more time
     await db.execute(
       `UPDATE month SET 
         title = $1,
@@ -22,10 +22,10 @@ export default async function updateMonth(
       [title, moreHours, moreMins, id]
     );
 
-    // Step 2: Update the year record
+    // update the year record
     await updateYearAutomatically(yearId, db);
 
-    // Step 3: Fetch the updated month record (we now want to compute net time)
+    // fetch the month record again to compute net time
     const monthResult = await db.select(
       `SELECT more_hours, more_minutes, less_hours, less_minutes
        FROM month
@@ -40,7 +40,7 @@ export default async function updateMonth(
       less_minutes = 0
     } = monthResult[0] || {};
 
-    // Step 4: Calculate net time difference
+    // calculate net time difference
     const totalMoreMins = more_hours * 60 + more_minutes;
     const totalLessMins = less_hours * 60 + less_minutes;
     const netMinutes = totalMoreMins - totalLessMins;
@@ -59,7 +59,7 @@ export default async function updateMonth(
       finalLessMinutes = abs % 60;
     }
 
-    // Step 5: Apply normalized values to the database
+    // apply normalized values to the database
     await db.execute(
       `UPDATE month SET 
         more_hours = $1,
