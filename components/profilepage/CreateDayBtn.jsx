@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import Modal from "@/components/ui/Modal";
 import createDay from "@/utils/profilepage/createDay";
+import areFieldsFilled from "@/utils/areFieldsFilled";
 import handleNumInput from "@/utils/handleNumInput";
 
 export default function CreateDayBtn({
@@ -36,7 +37,12 @@ export default function CreateDayBtn({
     let [note, setNote] = useState("");
 
     const submitFunc = async () => {
-        if(title){
+        const skipTimeFields = timeOffValue || isLwopValue || isAbsentValue;
+        const timeFieldsValid = skipTimeFields || areFieldsFilled(attendHour, attendMin, leaveHour, leaveMin);
+        const dateFieldsValid = areFieldsFilled(dateMonth, dateDay);
+        const titleValid = !!title;
+
+        if(titleValid && timeFieldsValid && dateFieldsValid){
             setIsOpen(false);
             await createDay(
                 title, 
@@ -82,7 +88,7 @@ export default function CreateDayBtn({
             setDateDay("");
             setNote("");
         } else {
-            alert("يجب ملئ جميع الحقول.");
+            alert("يجب ملئ جميع الحقول المحددة باللون الأحمر");
         }
     }
 
@@ -118,7 +124,7 @@ export default function CreateDayBtn({
             >
                 <input
                     placeholder="أدخل اسم اليوم، الخميس مثلاً"
-                    className="px-4 py-2 bg-comp rounded-xl w-96" 
+                    className="px-4 py-2 bg-comp rounded-xl w-96 border border-danger" 
                     type="text"
                     name="day_title"
                     onChange={e => setTitle(e.target.value)}
@@ -178,7 +184,7 @@ export default function CreateDayBtn({
                             <div className="flex items-center gap-x-3">
                                 <input
                                     placeholder="الساعة"
-                                    className="px-4 py-2 bg-comp rounded-xl w-20 disabled:bg-black/50" 
+                                    className="px-4 py-2 bg-comp rounded-xl w-20 outline outline-1 outline-danger focus:outline-2 focus:outline-black disabled:outline-none disabled:bg-black/50" 
                                     type="text"
                                     name="attend_hour"
                                     onKeyDown={e => handleNumInput(e, setAttendHour)}
@@ -188,7 +194,7 @@ export default function CreateDayBtn({
                                     />
                                 <input
                                     placeholder="الدقيقة"
-                                    className="px-4 py-2 bg-comp rounded-xl w-20 disabled:bg-black/50" 
+                                    className="px-4 py-2 bg-comp rounded-xl w-20 outline outline-1 outline-danger focus:outline-2 focus:outline-black disabled:outline-none disabled:bg-black/50" 
                                     type="text"
                                     name="attend_minute"
                                     onKeyDown={e => handleNumInput(e, setAttendMin)}
@@ -203,7 +209,7 @@ export default function CreateDayBtn({
                             <div className="flex items-center gap-x-3">
                                 <input
                                     placeholder="الساعة"
-                                    className="px-4 py-2 bg-comp rounded-xl w-20 disabled:bg-black/50" 
+                                    className="px-4 py-2 bg-comp rounded-xl w-20 outline outline-1 outline-danger focus:outline-2 focus:outline-black disabled:outline-none disabled:bg-black/50" 
                                     type="text"
                                     name="leave_hour"
                                     onKeyDown={e => handleNumInput(e, setLeaveHour)}
@@ -213,7 +219,7 @@ export default function CreateDayBtn({
                                     />
                                 <input
                                     placeholder="الدقيقة"
-                                    className="px-4 py-2 bg-comp rounded-xl w-20 disabled:bg-black/50" 
+                                    className="px-4 py-2 bg-comp rounded-xl w-20 outline outline-1 outline-danger focus:outline-2 focus:outline-black disabled:outline-none disabled:bg-black/50" 
                                     type="text"
                                     name="leave_minute"
                                     onKeyDown={e => handleNumInput(e, setLeaveMin)}
@@ -285,7 +291,7 @@ export default function CreateDayBtn({
                     <div className="flex items-center gap-x-8">
                         <input
                             placeholder="اليوم"
-                            className="px-4 py-2 bg-comp rounded-xl w-44" 
+                            className="px-4 py-2 bg-comp rounded-xl w-44 border border-danger" 
                             type="text"
                             name="date_day"
                             onKeyDown={e => handleNumInput(e, setDateDay)}
@@ -294,7 +300,7 @@ export default function CreateDayBtn({
                             />
                         <input
                             placeholder="الشهر"
-                            className="px-4 py-2 bg-comp rounded-xl w-44" 
+                            className="px-4 py-2 bg-comp rounded-xl w-44 border border-danger" 
                             type="text"
                             name="date_month"
                             onKeyDown={e => handleNumInput(e, setDateMonth)}

@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import Modal from "@/components/ui/Modal";
 import updateDay from "@/utils/profilepage/updateDay";
+import areFieldsFilled from "@/utils/areFieldsFilled";
 import handleNumInput from "@/utils/handleNumInput";
 import { TbEditCircle } from "react-icons/tb";
 
@@ -37,7 +38,12 @@ export default function UpdateDayBtn({
     let [note, setNote] = useState(currentDay?.note ?? "");
 
     const submitFunc = async () => {
-        if(title){
+        const skipTimeFields = timeOffValue || isLwopValue || isAbsentValue;
+        const timeFieldsValid = skipTimeFields || areFieldsFilled(attendHour, attendMin, leaveHour, leaveMin);
+        const dateFieldsValid = areFieldsFilled(dateMonth, dateDay);
+        const titleValid = !!title;
+
+        if(titleValid && timeFieldsValid && dateFieldsValid){
             setIsOpen(false);
             await updateDay(
                 currentDay.id,
@@ -83,7 +89,7 @@ export default function UpdateDayBtn({
             setDateDay(prev => prev);
             setNote(prev => prev);
         } else {
-            alert("يجب ملئ جميع الحقول.");
+            alert("يجب ملئ جميع الحقول المحددة باللون الأحمر");
         }
     }
 
@@ -128,7 +134,7 @@ export default function UpdateDayBtn({
             >
                 <input
                     placeholder="أدخل اسم اليوم، الخميس مثلاً"
-                    className="px-4 py-2 bg-comp rounded-xl w-96" 
+                    className="px-4 py-2 bg-comp rounded-xl w-96 border border-danger" 
                     type="text"
                     name="day_title"
                     value={title}
@@ -189,7 +195,7 @@ export default function UpdateDayBtn({
                             <div className="flex items-center gap-x-3">
                                 <input
                                     placeholder="الساعة"
-                                    className="px-4 py-2 bg-comp rounded-xl w-20 disabled:bg-black/50" 
+                                    className="px-4 py-2 bg-comp rounded-xl w-20 outline outline-1 outline-danger focus:outline-2 focus:outline-black disabled:outline-none disabled:bg-black/50" 
                                     type="text"
                                     name="attend_hour"
                                     value={attendHour}
@@ -200,7 +206,7 @@ export default function UpdateDayBtn({
                                     />
                                 <input
                                     placeholder="الدقيقة"
-                                    className="px-4 py-2 bg-comp rounded-xl w-20 disabled:bg-black/50" 
+                                    className="px-4 py-2 bg-comp rounded-xl w-20 outline outline-1 outline-danger focus:outline-2 focus:outline-black disabled:outline-none disabled:bg-black/50" 
                                     type="text"
                                     name="attend_minute"
                                     value={attendMin}
@@ -216,7 +222,7 @@ export default function UpdateDayBtn({
                             <div className="flex items-center gap-x-3">
                                 <input
                                     placeholder="الساعة"
-                                    className="px-4 py-2 bg-comp rounded-xl w-20 disabled:bg-black/50" 
+                                    className="px-4 py-2 bg-comp rounded-xl w-20 outline outline-1 outline-danger focus:outline-2 focus:outline-black disabled:outline-none disabled:bg-black/50" 
                                     type="text"
                                     name="leave_hour"
                                     value={leaveHour}
@@ -227,7 +233,7 @@ export default function UpdateDayBtn({
                                     />
                                 <input
                                     placeholder="الدقيقة"
-                                    className="px-4 py-2 bg-comp rounded-xl w-20 disabled:bg-black/50" 
+                                    className="px-4 py-2 bg-comp rounded-xl w-20 outline outline-1 outline-danger focus:outline-2 focus:outline-black disabled:outline-none disabled:bg-black/50" 
                                     type="text"
                                     name="leave_minute"
                                     value={leaveMin}
@@ -304,7 +310,7 @@ export default function UpdateDayBtn({
                     <div className="flex items-center gap-x-8">
                         <input
                             placeholder="اليوم"
-                            className="px-4 py-2 bg-comp rounded-xl w-44" 
+                            className="px-4 py-2 bg-comp rounded-xl w-44 border border-danger" 
                             type="text"
                             name="date_day"
                             value={dateDay}
@@ -314,7 +320,7 @@ export default function UpdateDayBtn({
                             />
                         <input
                             placeholder="الشهر"
-                            className="px-4 py-2 bg-comp rounded-xl w-44" 
+                            className="px-4 py-2 bg-comp rounded-xl w-44 border border-danger" 
                             type="text"
                             name="date_month"
                             value={dateMonth}
