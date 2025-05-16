@@ -13,12 +13,15 @@ export default function Page(){
             {loading && <Loader />}
             
             {!loading && 
-            <Groups 
-                groups={groups}
-                getGroups={getGroups}
-            />}
+            <>
+                <Groups 
+                    groups={groups}
+                    getGroups={getGroups}
+                />
+                <CreateGroupBtn getGroups={getGroups} />
+            </>
+            }
 
-            <CreateGroupBtn getGroups={getGroups} />
         </Layout>
     );
 }

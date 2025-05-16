@@ -1,5 +1,4 @@
 import { BsDatabaseDown } from "react-icons/bs";
-import Button from "@/components/ui/Button";
 
 export default function ExportDatabaseBtn(){
     const exportDatabase = async () => {
@@ -10,7 +9,7 @@ export default function ExportDatabaseBtn(){
 
             // Open a save dialog to allow the user to specify the destination path
             const destinationPath = await save({
-                defaultPath: "grades.db",
+                defaultPath: "presence.db",
                 filters: [
                     {
                         name: "SQLite Database",
@@ -26,7 +25,7 @@ export default function ExportDatabaseBtn(){
             }
 
             // Copy the database to the specified location
-            await copyFile("grades.db", destinationPath, {
+            await copyFile("presence.db", destinationPath, {
                 fromPathBaseDir: BaseDirectory.AppData,
             });
 
@@ -37,11 +36,12 @@ export default function ExportDatabaseBtn(){
     }
 
     return(
-        <Button
-            label="تصدير قاعدة البيانات"
-            setFunc={() => exportDatabase()}
+        <button
+            className="flex items-center justify-center gap-x-2 w-fit select-none bg-accent1 text-white font-bold px-3 py-1 rounded-full transition-all hover:text-accent1 hover:bg-white border border-accent1"
+            onClick={() => exportDatabase()}
         >
+            تصدير قاعدة البيانات
             <BsDatabaseDown className="size-5" />
-        </Button>
+        </button>
     );
 }

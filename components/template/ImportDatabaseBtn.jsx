@@ -1,5 +1,4 @@
 import { BsDatabaseAdd } from "react-icons/bs";
-import Button from "@/components/ui/Button";
 
 export default function ImportDatabaseBtn(){
     const importDatabase = async () => {
@@ -33,12 +32,12 @@ export default function ImportDatabaseBtn(){
             // copy file only if confirmation is true
             if(confirmation === true){
                 // Copy the selected file to the app's database location
-                await copyFile(selectedFile, "grades.db", {
+                await copyFile(selectedFile, "presence.db", {
                     toPathBaseDir: BaseDirectory.AppData
                 });
                 
-                // Refresh the app to work with the new database
-                window.location.reload();
+                // move to main page to avoid errors
+                window.location.href = "/";
             }
         } catch(error){
             console.error("حدث خطأ في استيراد قاعدة البيانات، التفاصيل:", error);
@@ -46,11 +45,12 @@ export default function ImportDatabaseBtn(){
     }
 
     return(
-        <Button
-            label="استيراد قاعدة بيانات"
-            setFunc={() => importDatabase()}
+        <button
+            className="flex items-center justify-center gap-x-2 w-fit select-none bg-accent1 text-white font-bold px-3 py-1 rounded-full transition-all hover:text-accent1 hover:bg-white border border-accent1" 
+            onClick={() => importDatabase()}
         >
+            استيراد قاعدة بيانات
             <BsDatabaseAdd className="size-5" />
-        </Button>
+        </button>
     );
 }
