@@ -9,7 +9,8 @@ export default function DeleteYearModal({
     setIsOpen,
     updateCurrentDateInfo, 
     getTotalMoreLess, 
-    getRemainingLeaveDays
+    getRemainingLeaveDays, 
+    getEmployeeStatistics
 }){
     const submitFunc = async () => {
         setIsOpen(false);
@@ -18,6 +19,7 @@ export default function DeleteYearModal({
         await updateCurrentDateInfo();
         await getTotalMoreLess();
         await getRemainingLeaveDays();
+        await getEmployeeStatistics();
         closeFunc();
     }
 

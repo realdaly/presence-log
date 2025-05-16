@@ -146,7 +146,7 @@ export default function profile(){
         {isLoading && <Loader />}
         {!isLoading && 
           <div className="w-full overflow-x-auto">
-            <h1 className="text-xl font-bold py-3 pr-3">
+            <h1 className="text-2xl font-bold py-3 pr-5">
               {employeeName}
             </h1>
             <div className="pb-3 flex flex-wrap items-center gap-2 pr-3">
@@ -159,6 +159,7 @@ export default function profile(){
                 updateCurrentDateInfo={updateCurrentDateInfo}
                 getTotalMoreLess={getTotalMoreLess}
                 getRemainingLeaveDays={getRemainingLeaveDays}
+                getEmployeeStatistics={getEmployeeStatistics}
               />
               <CreateMonthBtn 
                 employeeId={employeeId}
@@ -171,6 +172,7 @@ export default function profile(){
                 updateCurrentDateInfo={updateCurrentDateInfo}
                 getTotalMoreLess={getTotalMoreLess}
                 getRemainingLeaveDays={getRemainingLeaveDays}
+                getEmployeeStatistics={getEmployeeStatistics}
               />
               <CreateDayBtn 
                 employeeId={employeeId}

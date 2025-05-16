@@ -18,7 +18,8 @@ export default function CreateYearBtn({
     setCurrentYear, 
     updateCurrentDateInfo, 
     getTotalMoreLess, 
-    getRemainingLeaveDays
+    getRemainingLeaveDays, 
+    getEmployeeStatistics
 }){
     let [isOpen, setIsOpen] = useState(false);
 
@@ -190,6 +191,7 @@ export default function CreateYearBtn({
             updateCurrentDateInfo={updateCurrentDateInfo}
             getTotalMoreLess={getTotalMoreLess}
             getRemainingLeaveDays={getRemainingLeaveDays}
+            getEmployeeStatistics={getEmployeeStatistics}
         />
     </>
     );

@@ -10,7 +10,8 @@ export default function DeleteDayBtn({
     getDays, 
     updateCurrentDateInfo, 
     getTotalMoreLess, 
-    getRemainingLeaveDays
+    getRemainingLeaveDays, 
+    getEmployeeStatistics
 }){
     let [isOpen, setIsOpen] = useState(false);
 
@@ -21,6 +22,7 @@ export default function DeleteDayBtn({
         await updateCurrentDateInfo();
         await getTotalMoreLess();
         await getRemainingLeaveDays();
+        await getEmployeeStatistics();
     }
 
     return(

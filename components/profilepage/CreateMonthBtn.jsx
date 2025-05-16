@@ -20,7 +20,8 @@ export default function CreateMonthBtn({
     setCurrentMonth, 
     updateCurrentDateInfo, 
     getTotalMoreLess, 
-    getRemainingLeaveDays
+    getRemainingLeaveDays, 
+    getEmployeeStatistics
 }){
     let [isOpen, setIsOpen] = useState(false);
 
@@ -195,6 +196,7 @@ export default function CreateMonthBtn({
             updateCurrentDateInfo={updateCurrentDateInfo}
             getTotalMoreLess={getTotalMoreLess}
             getRemainingLeaveDays={getRemainingLeaveDays}
+            getEmployeeStatistics={getEmployeeStatistics}
         />
     </>
     );

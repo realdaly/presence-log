@@ -11,7 +11,8 @@ export default function DeleteMonthModal({
     setIsOpen, 
     updateCurrentDateInfo, 
     getTotalMoreLess, 
-    getRemainingLeaveDays
+    getRemainingLeaveDays, 
+    getEmployeeStatistics
 }){
     const submitFunc = async () => {
         setIsOpen(false);
@@ -21,6 +22,7 @@ export default function DeleteMonthModal({
         await updateCurrentDateInfo();
         await getTotalMoreLess();
         await getRemainingLeaveDays();
+        await getEmployeeStatistics();
         closeFunc();
     }
 
