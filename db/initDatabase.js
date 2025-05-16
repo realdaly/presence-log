@@ -89,6 +89,8 @@ export default async function initDatabase() {
       "enter_hour" INTEGER DEFAULT NULL,
       "enter_minute" INTEGER DEFAULT NULL,
       "time_off" BOOLEAN DEFAULT 0,
+      "is_lwop" BOOLEAN DEFAULT 0,
+      "is_absent" BOOLEAN DEFAULT 0,
       "note" VARCHAR(2000) DEFAULT NULL,
       FOREIGN KEY ("employee_id") REFERENCES "employee" ("id") ON DELETE CASCADE,
       FOREIGN KEY ("month_id") REFERENCES "month" ("id") ON DELETE CASCADE,

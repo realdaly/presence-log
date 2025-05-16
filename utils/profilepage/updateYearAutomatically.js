@@ -1,4 +1,4 @@
-export default async function updateYearAutomatically(yearId, db) {
+export default async function updateYearAutomatically(yearId, db){
   const result = await db.select(
     `SELECT 
       SUM(more_hours) AS total_more_hours, 
@@ -17,24 +17,36 @@ export default async function updateYearAutomatically(yearId, db) {
     total_less_minutes = 0,
   } = result[0] || {};
 
-  const normalized_more_hours = Math.floor(total_more_minutes / 60) + total_more_hours;
-  const normalized_more_minutes = total_more_minutes % 60;
+  // convert everything to total minutes
+  const totalMoreMins = total_more_hours * 60 + total_more_minutes;
+  const totalLessMins = total_less_hours * 60 + total_less_minutes;
 
-  const normalized_less_hours = Math.floor(total_less_minutes / 60) + total_less_hours;
-  const normalized_less_minutes = total_less_minutes % 60;
+  const netMinutes = totalMoreMins - totalLessMins;
+
+  let more_hours = 0;
+  let more_minutes = 0;
+  let less_hours = 0;
+  let less_minutes = 0;
+
+  if (netMinutes >= 0) {
+    more_hours = Math.floor(netMinutes / 60);
+    more_minutes = netMinutes % 60;
+  } else {
+    const absMinutes = Math.abs(netMinutes);
+    less_hours = Math.floor(absMinutes / 60);
+    less_minutes = absMinutes % 60;
+  }
 
   await db.execute(
     `UPDATE year 
-      SET more_hours = $1, 
-      more_minutes = $2, 
-      less_hours = $3, 
-      less_minutes = $4 
+      SET more_hours = $1, more_minutes = $2, 
+          less_hours = $3, less_minutes = $4 
      WHERE id = $5`,
     [
-      normalized_more_hours,
-      normalized_more_minutes,
-      normalized_less_hours,
-      normalized_less_minutes,
+      more_hours,
+      more_minutes,
+      less_hours,
+      less_minutes,
       yearId,
     ]
   );

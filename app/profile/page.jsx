@@ -13,6 +13,7 @@ import readSingleMonth from "@/utils/profilepage/readSingleMonth";
 import readDays from "@/utils/profilepage/readDays";
 import calcTotalMoreLess from "@/utils/profilepage/calcTotalMoreLess";
 import calcRemainingLeaveDays from "@/utils/profilepage/calcRemainingLeaveDays";
+import readEmployeeStatistics from "@/utils/profilepage/readEmployeeStatistics";
 import CreateYearBtn from "@/components/profilepage/CreateYearBtn";
 import CreateMonthBtn from "@/components/profilepage/CreateMonthBtn";
 import CreateDayBtn from "@/components/profilepage/CreateDayBtn";
@@ -29,6 +30,7 @@ export default function profile(){
     const [isLoading, setIsLoading] = useState(true);
     const [totalMoreLess, setTotalMoreLess] = useState({});
     const [remainingLeaveDays, setRemainingLeaveDays] = useState("");
+    const [employeeStatistics, setEmployeeStatistics] = useState({});
     const [groupInfo, setGroupInfo] = useState({});
     const [yearsData, setYearsData] = useState([]);
     const [monthsData, setMonthsData] = useState([]);
@@ -62,6 +64,11 @@ export default function profile(){
     const getRemainingLeaveDays = async () => {
       const calculatedRemainingDays = await calcRemainingLeaveDays(employeeId);
       setRemainingLeaveDays(calculatedRemainingDays);
+    }
+
+    const getEmployeeStatistics = async () => {
+      const fetchedStatistics = await readEmployeeStatistics(employeeId);
+      setEmployeeStatistics(fetchedStatistics);
     }
 
     const updateCurrentDateInfo = async () => {
@@ -112,6 +119,7 @@ export default function profile(){
         getGroupInfo();
         getYears();
         getTotalMoreLess();
+        getEmployeeStatistics();
         getRemainingLeaveDays();
         setIsLoading(false);
       }
@@ -212,6 +220,8 @@ export default function profile(){
               />
               <Statistics
                 remainingLeaveDays={remainingLeaveDays}
+                lwopDays={employeeStatistics.lwop_days}
+                absentDays={employeeStatistics.absent_days}
               />
             </div>}
           </div>
