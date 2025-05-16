@@ -181,6 +181,7 @@ export default function profile(){
                 updateCurrentDateInfo={updateCurrentDateInfo}
                 getTotalMoreLess={getTotalMoreLess}
                 getRemainingLeaveDays={getRemainingLeaveDays}
+                getEmployeeStatistics={getEmployeeStatistics}
               />
             </div>
             <DaysTable 

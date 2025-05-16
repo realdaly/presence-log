@@ -5,6 +5,8 @@ import updateYearAutomatically from "@/utils/profilepage/updateYearAutomatically
 export default async function createDay(
   title,
   time_off,
+  is_lwop, 
+  is_absent, 
   attend_hour,
   attend_minute,
   leave_hour,
@@ -90,6 +92,8 @@ export default async function createDay(
       `INSERT INTO day (
         title,
         time_off,
+        is_lwop,
+        is_absent,
         attend_hour,
         attend_minute,
         leave_hour,
@@ -116,11 +120,13 @@ export default async function createDay(
         $1, $2, $3, $4, $5, $6,
         $7, $8, $9, $10, $11, $12,
         $13, $14, $15, $16, $17, $18,
-        $19, $20, $21, $22, $23, $24
+        $19, $20, $21, $22, $23, $24, $25, $26
       )`,
       [
         title,
         time_off,
+        is_lwop,
+        is_absent,
         attend_hour,
         attend_minute,
         leave_hour,

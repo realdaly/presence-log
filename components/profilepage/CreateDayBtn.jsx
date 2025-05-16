@@ -12,14 +12,18 @@ export default function CreateDayBtn({
     getDays, 
     updateCurrentDateInfo, 
     getTotalMoreLess, 
-    getRemainingLeaveDays
+    getRemainingLeaveDays, 
+    getEmployeeStatistics
 }){
+
     let [isOpen, setIsOpen] = useState(false);
+    let [selectedStatus, setSelectedStatus] = useState(null);
 
     // states for values
     let [title, setTitle] = useState("");
-    let [timeOff, setTimeOff] = useState(false);
     let [timeOffValue, setTimeOffValue] = useState(0);
+    let [isLwopValue, setIsLwopValue] = useState(0);
+    let [isAbsentValue, setIsAbsentValue] = useState(0);
     let [attendHour, setAttendHour] = useState("");
     let [attendMin, setAttendMin] = useState("");
     let [leaveHour, setLeaveHour] = useState("");
@@ -38,6 +42,8 @@ export default function CreateDayBtn({
             await createDay(
                 title, 
                 timeOffValue, 
+                isLwopValue, 
+                isAbsentValue, 
                 attendHour, 
                 attendMin, 
                 leaveHour, 
@@ -59,9 +65,12 @@ export default function CreateDayBtn({
             await updateCurrentDateInfo();
             await getTotalMoreLess();
             await getRemainingLeaveDays();
+            await getEmployeeStatistics();
             setTitle("");
-            setTimeOff(false);
             setTimeOffValue(0);
+            setIsLwopValue(0);
+            setIsAbsentValue(0);
+            setSelectedStatus(null);
             setAttendHour("");
             setAttendMin("");
             setLeaveHour("");
@@ -78,13 +87,12 @@ export default function CreateDayBtn({
         }
     }
 
+    
     useEffect(() => {
-        if(timeOff == true){
-            setTimeOffValue(1);
-        } else{
-            setTimeOffValue(0);
-        }
-    }, [timeOff]);
+        setTimeOffValue(selectedStatus === "time_off" ? 1 : 0);
+        setIsLwopValue(selectedStatus === "is_lwop" ? 1 : 0);
+        setIsAbsentValue(selectedStatus === "is_absent" ? 1 : 0);
+    }, [selectedStatus]);
 
     return(
     <>
@@ -117,21 +125,51 @@ export default function CreateDayBtn({
                     onChange={e => setTitle(e.target.value)}
                     data-autofocus
                 />
-                <div className="flex items-center justify-start w-full pt-3 mr-5 select-none">
-                    <input 
-                        id="default-checkbox" 
-                        type="checkbox" 
-                        name="time_off" 
-                        checked={timeOff}
-                        onChange={e => setTimeOff(e.target.checked)}
-                        className="cursor-pointer size-7"
-                    />
-                    <label 
-                        htmlFor="default-checkbox" 
-                        className="cursor-pointer mr-2"
-                    >
-                            يوم إجازة
-                    </label>
+                <div className="flex items-center justify-between w-full pt-3 select-none">
+                    <div className="flex items-center justify-start">
+                        <input 
+                            id="time_off" 
+                            type="radio" 
+                            name="day_status" 
+                            checked={selectedStatus === "time_off"}
+                            onClick={() => setSelectedStatus(prev => prev === "time_off" ? null : "time_off")}
+                            readOnly
+                            className="cursor-pointer size-7"
+                        />
+                        <label htmlFor="time_off" className="cursor-pointer mr-2">
+                            إجازة براتب
+                        </label>
+                    </div>
+
+                    <div className="flex items-center justify-start">
+                        <input 
+                            id="is_lwop" 
+                            type="radio" 
+                            name="day_status" 
+                            checked={selectedStatus === "is_lwop"}
+                            onClick={() => setSelectedStatus(prev => prev === "is_lwop" ? null : "is_lwop")}
+                            readOnly
+                            className="cursor-pointer size-7"
+                        />
+                        <label htmlFor="is_lwop" className="cursor-pointer mr-2">
+                            إجازة بدون راتب
+                        </label>
+                    </div>
+
+                    <div className="flex items-center justify-start">
+                        <input 
+                            id="is_absent" 
+                            type="radio" 
+                            name="day_status" 
+                            checked={selectedStatus === "is_absent"}
+                            onClick={() => setSelectedStatus(prev => prev === "is_absent" ? null : "is_absent")}
+                            readOnly
+                            className="cursor-pointer size-7"
+                        />
+                        <label htmlFor="is_absent" className="cursor-pointer mr-2">
+                            غياب
+                        </label>
+                    </div>
                 </div>
                 <div className="pt-5">
                     <p className="text-center pb-1 font-bold">وقت الحضور:</p>
@@ -146,7 +184,7 @@ export default function CreateDayBtn({
                                     name="attend_hour"
                                     onKeyDown={e => handleNumInput(e, setAttendHour)}
                                     onChange={e => setAttendHour(e.target.value)}
-                                    disabled={timeOff}
+                                    disabled={selectedStatus}
                                     maxLength={2}
                                     />
                                 <input
@@ -157,7 +195,7 @@ export default function CreateDayBtn({
                                     onKeyDown={e => handleNumInput(e, setAttendMin)}
                                     onChange={e => setAttendMin(e.target.value)}
                                     maxLength={2}
-                                    disabled={timeOff}
+                                    disabled={selectedStatus}
                                 />
                             </div>
                         </div>
@@ -172,7 +210,7 @@ export default function CreateDayBtn({
                                     onKeyDown={e => handleNumInput(e, setLeaveHour)}
                                     onChange={e => setLeaveHour(e.target.value)}
                                     maxLength={2}
-                                    disabled={timeOff}
+                                    disabled={selectedStatus}
                                     />
                                 <input
                                     placeholder="الدقيقة"
@@ -182,7 +220,7 @@ export default function CreateDayBtn({
                                     onKeyDown={e => handleNumInput(e, setLeaveMin)}
                                     onChange={e => setLeaveMin(e.target.value)}
                                     maxLength={2}
-                                    disabled={timeOff}
+                                    disabled={selectedStatus}
                                 />
                             </div>
                         </div>
@@ -202,7 +240,7 @@ export default function CreateDayBtn({
                                     onKeyDown={e => handleNumInput(e, setExitHour)}
                                     onChange={e => setExitHour(e.target.value)}
                                     maxLength={2}
-                                    disabled={timeOff}
+                                    disabled={selectedStatus}
                                     />
                                 <input
                                     placeholder="الدقيقة"
@@ -212,7 +250,7 @@ export default function CreateDayBtn({
                                     onKeyDown={e => handleNumInput(e, setExitMin)}
                                     onChange={e => setExitMin(e.target.value)}
                                     maxLength={2}
-                                    disabled={timeOff}
+                                    disabled={selectedStatus}
                                 />
                             </div>
                         </div>
@@ -227,7 +265,7 @@ export default function CreateDayBtn({
                                     onKeyDown={e => handleNumInput(e, setEnterHour)}
                                     onChange={e => setEnterHour(e.target.value)}
                                     maxLength={2}
-                                    disabled={timeOff}
+                                    disabled={selectedStatus}
                                     />
                                 <input
                                     placeholder="الدقيقة"
@@ -237,7 +275,7 @@ export default function CreateDayBtn({
                                     onKeyDown={e => handleNumInput(e, setEnterMin)}
                                     onChange={e => setEnterMin(e.target.value)}
                                     maxLength={2}
-                                    disabled={timeOff}
+                                    disabled={selectedStatus}
                                 />
                             </div>
                         </div>
