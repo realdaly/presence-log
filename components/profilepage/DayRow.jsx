@@ -13,7 +13,8 @@ export default function DayRow({
     timeOff, 
     updateCurrentDateInfo, 
     getTotalMoreLess, 
-    getRemainingLeaveDays
+    getRemainingLeaveDays, 
+    getEmployeeStatistics
 }){
     return(
         <div className="border-b border-r border-l last:rounded-b-xl bg-white odd:bg-domI w-fit">
@@ -95,6 +96,7 @@ export default function DayRow({
                             updateCurrentDateInfo={updateCurrentDateInfo}
                             getTotalMoreLess={getTotalMoreLess}
                             getRemainingLeaveDays={getRemainingLeaveDays}
+                            getEmployeeStatistics={getEmployeeStatistics}
                         />
                         <DeleteDayBtn 
                             year={year}
@@ -104,6 +106,7 @@ export default function DayRow({
                             updateCurrentDateInfo={updateCurrentDateInfo}
                             getTotalMoreLess={getTotalMoreLess}
                             getRemainingLeaveDays={getRemainingLeaveDays}
+                            getEmployeeStatistics={getEmployeeStatistics}
                         />
                     </div>
                 </DropdownMenu>

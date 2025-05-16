@@ -6,6 +6,8 @@ export default async function updateDay(
     id,
     title,
     time_off,
+    is_lwop, 
+    is_absent, 
     attend_hour,
     attend_minute,
     leave_hour,
@@ -33,7 +35,7 @@ export default async function updateDay(
   
     const required_total_minutes = (required_hours ?? 0) * 60 + (required_minutes ?? 0);
   
-    if (!time_off) {
+    if (!time_off && !is_lwop && !is_absent) {
       const attend_total = (parseInt(attend_hour) || 0) * 60 + (parseInt(attend_minute) || 0);
       const leave_total = (parseInt(leave_hour) || 0) * 60 + (parseInt(leave_minute) || 0);
   
@@ -89,27 +91,31 @@ export default async function updateDay(
         `UPDATE day SET
           title = $1,
           time_off = $2,
-          attend_hour = $3,
-          attend_minute = $4,
-          leave_hour = $5,
-          leave_minute = $6,
-          more_hours = $7,
-          more_minutes = $8,
-          less_hours = $9,
-          less_minutes = $10,
-          total_hours = $11,
-          total_minutes = $12,
-          exit_hour = $13,
-          exit_minute = $14,
-          enter_hour = $15,
-          enter_minute = $16,
-          date_day = $17,
-          date_month = $18,
-          note = $19
-        WHERE id = $20`,
+          is_lwop = $3,
+          is_absent = $4,
+          attend_hour = $5,
+          attend_minute = $6,
+          leave_hour = $7,
+          leave_minute = $8,
+          more_hours = $9,
+          more_minutes = $10,
+          less_hours = $11,
+          less_minutes = $12,
+          total_hours = $13,
+          total_minutes = $14,
+          exit_hour = $15,
+          exit_minute = $16,
+          enter_hour = $17,
+          enter_minute = $18,
+          date_day = $19,
+          date_month = $20,
+          note = $21
+        WHERE id = $22`,
         [
           title,
           time_off,
+          is_lwop,
+          is_absent,
           attend_hour,
           attend_minute,
           leave_hour,

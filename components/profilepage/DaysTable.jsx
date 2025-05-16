@@ -12,7 +12,8 @@ export default function DaysTable({
     getDays, 
     updateCurrentDateInfo, 
     getTotalMoreLess, 
-    getRemainingLeaveDays
+    getRemainingLeaveDays, 
+    getEmployeeStatistics
 }){
     return(
         <div className="flex justify-center">
@@ -31,6 +32,7 @@ export default function DaysTable({
                     updateCurrentDateInfo={updateCurrentDateInfo}
                     getTotalMoreLess={getTotalMoreLess}
                     getRemainingLeaveDays={getRemainingLeaveDays}
+                    getEmployeeStatistics={getEmployeeStatistics}
                 />
             ))}
             {(yearsData.length == 0 || monthsData.length == 0 || daysData.length == 0) && (

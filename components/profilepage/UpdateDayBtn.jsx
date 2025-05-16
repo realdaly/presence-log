@@ -13,14 +13,17 @@ export default function UpdateDayBtn({
     currentDay, 
     updateCurrentDateInfo, 
     getTotalMoreLess, 
-    getRemainingLeaveDays
+    getRemainingLeaveDays, 
+    getEmployeeStatistics
 }){
     let [isOpen, setIsOpen] = useState(false);
+    let [selectedStatus, setSelectedStatus] = useState(null);
 
     // states for values
     let [title, setTitle] = useState(currentDay?.title);
-    let [timeOff, setTimeOff] = useState(currentDay?.time_off == 0 ? false : true);
     let [timeOffValue, setTimeOffValue] = useState(currentDay?.time_off);
+    let [isLwopValue, setIsLwopValue] = useState(currentDay?.is_lwop);
+    let [isAbsentValue, setIsAbsentValue] = useState(currentDay?.is_absent);
     let [attendHour, setAttendHour] = useState(currentDay?.time_off == 0 ? currentDay?.attend_hour : "");
     let [attendMin, setAttendMin] = useState(currentDay?.time_off == 0 ? currentDay?.attend_minute : "");
     let [leaveHour, setLeaveHour] = useState(currentDay?.time_off == 0 ? currentDay?.leave_hour : "");
@@ -40,6 +43,8 @@ export default function UpdateDayBtn({
                 currentDay.id,
                 title, 
                 timeOffValue, 
+                isLwopValue, 
+                isAbsentValue, 
                 attendHour, 
                 attendMin, 
                 leaveHour, 
@@ -60,9 +65,12 @@ export default function UpdateDayBtn({
             await updateCurrentDateInfo();
             await getTotalMoreLess();
             await getRemainingLeaveDays();
+            await getEmployeeStatistics();
             setTitle(prev => prev);
-            setTimeOff(prev => prev);
             setTimeOffValue(prev => prev);
+            setIsLwopValue(prev => prev);
+            setIsAbsentValue(prev => prev);
+            setSelectedStatus(prev => prev);
             setAttendHour(prev => prev);
             setAttendMin(prev => prev);
             setLeaveHour(prev => prev);
@@ -80,12 +88,20 @@ export default function UpdateDayBtn({
     }
 
     useEffect(() => {
-        if(timeOff == true){
-            setTimeOffValue(1);
-        } else{
-            setTimeOffValue(0);
+        setTimeOffValue(selectedStatus === "time_off" ? 1 : 0);
+        setIsLwopValue(selectedStatus === "is_lwop" ? 1 : 0);
+        setIsAbsentValue(selectedStatus === "is_absent" ? 1 : 0);
+    }, [selectedStatus]);
+
+    useEffect(() => {
+        if (currentDay?.time_off == 1){
+            setSelectedStatus("time_off");
+        } else if (currentDay?.is_lwop == 1){
+            setSelectedStatus("is_lwop");
+        } else if (currentDay?.is_absent == 1){
+            setSelectedStatus("is_absent");
         }
-    }, [timeOff]);
+    }, []);
 
     return(
     <>
@@ -119,21 +135,51 @@ export default function UpdateDayBtn({
                     onChange={e => setTitle(e.target.value)}
                     data-autofocus
                 />
-                <div className="flex items-center justify-start w-full pt-3 mr-5 select-none">
-                    <input 
-                        id="default-checkbox" 
-                        type="checkbox" 
-                        name="time_off" 
-                        checked={timeOff}
-                        onChange={e => setTimeOff(e.target.checked)}
-                        className="cursor-pointer size-7"
-                    />
-                    <label 
-                        htmlFor="default-checkbox" 
-                        className="cursor-pointer mr-2"
-                    >
-                            يوم إجازة
-                    </label>
+                <div className="flex items-center justify-between w-full pt-3 select-none">
+                    <div className="flex items-center justify-start">
+                        <input 
+                            id="time_off" 
+                            type="radio" 
+                            name="day_status" 
+                            checked={selectedStatus === "time_off"}
+                            onClick={() => setSelectedStatus(prev => prev === "time_off" ? null : "time_off")}
+                            readOnly
+                            className="cursor-pointer size-7"
+                        />
+                        <label htmlFor="time_off" className="cursor-pointer mr-2">
+                            إجازة براتب
+                        </label>
+                    </div>
+
+                    <div className="flex items-center justify-start">
+                        <input 
+                            id="is_lwop" 
+                            type="radio" 
+                            name="day_status" 
+                            checked={selectedStatus === "is_lwop"}
+                            onClick={() => setSelectedStatus(prev => prev === "is_lwop" ? null : "is_lwop")}
+                            readOnly
+                            className="cursor-pointer size-7"
+                        />
+                        <label htmlFor="is_lwop" className="cursor-pointer mr-2">
+                            إجازة بدون راتب
+                        </label>
+                    </div>
+
+                    <div className="flex items-center justify-start">
+                        <input 
+                            id="is_absent" 
+                            type="radio" 
+                            name="day_status" 
+                            checked={selectedStatus === "is_absent"}
+                            onClick={() => setSelectedStatus(prev => prev === "is_absent" ? null : "is_absent")}
+                            readOnly
+                            className="cursor-pointer size-7"
+                        />
+                        <label htmlFor="is_absent" className="cursor-pointer mr-2">
+                            غياب
+                        </label>
+                    </div>
                 </div>
                 <div className="pt-5">
                     <p className="text-center pb-1 font-bold">وقت الحضور:</p>
@@ -149,7 +195,7 @@ export default function UpdateDayBtn({
                                     value={attendHour}
                                     onKeyDown={e => handleNumInput(e, setAttendHour)}
                                     onChange={e => setAttendHour(e.target.value)}
-                                    disabled={timeOff}
+                                    disabled={selectedStatus}
                                     maxLength={2}
                                     />
                                 <input
@@ -161,7 +207,7 @@ export default function UpdateDayBtn({
                                     onKeyDown={e => handleNumInput(e, setAttendMin)}
                                     onChange={e => setAttendMin(e.target.value)}
                                     maxLength={2}
-                                    disabled={timeOff}
+                                    disabled={selectedStatus}
                                 />
                             </div>
                         </div>
@@ -177,7 +223,7 @@ export default function UpdateDayBtn({
                                     onKeyDown={e => handleNumInput(e, setLeaveHour)}
                                     onChange={e => setLeaveHour(e.target.value)}
                                     maxLength={2}
-                                    disabled={timeOff}
+                                    disabled={selectedStatus}
                                     />
                                 <input
                                     placeholder="الدقيقة"
@@ -188,7 +234,7 @@ export default function UpdateDayBtn({
                                     onKeyDown={e => handleNumInput(e, setLeaveMin)}
                                     onChange={e => setLeaveMin(e.target.value)}
                                     maxLength={2}
-                                    disabled={timeOff}
+                                    disabled={selectedStatus}
                                 />
                             </div>
                         </div>
@@ -209,7 +255,7 @@ export default function UpdateDayBtn({
                                     onKeyDown={e => handleNumInput(e, setExitHour)}
                                     onChange={e => setExitHour(e.target.value)}
                                     maxLength={2}
-                                    disabled={timeOff}
+                                    disabled={selectedStatus}
                                     />
                                 <input
                                     placeholder="الدقيقة"
@@ -220,7 +266,7 @@ export default function UpdateDayBtn({
                                     onKeyDown={e => handleNumInput(e, setExitMin)}
                                     onChange={e => setExitMin(e.target.value)}
                                     maxLength={2}
-                                    disabled={timeOff}
+                                    disabled={selectedStatus}
                                 />
                             </div>
                         </div>
@@ -236,7 +282,7 @@ export default function UpdateDayBtn({
                                     onKeyDown={e => handleNumInput(e, setEnterHour)}
                                     onChange={e => setEnterHour(e.target.value)}
                                     maxLength={2}
-                                    disabled={timeOff}
+                                    disabled={selectedStatus}
                                     />
                                 <input
                                     placeholder="الدقيقة"
@@ -247,7 +293,7 @@ export default function UpdateDayBtn({
                                     onKeyDown={e => handleNumInput(e, setEnterMin)}
                                     onChange={e => setEnterMin(e.target.value)}
                                     maxLength={2}
-                                    disabled={timeOff}
+                                    disabled={selectedStatus}
                                 />
                             </div>
                         </div>

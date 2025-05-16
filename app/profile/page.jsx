@@ -195,6 +195,7 @@ export default function profile(){
               updateCurrentDateInfo={updateCurrentDateInfo}
               getTotalMoreLess={getTotalMoreLess}
               getRemainingLeaveDays={getRemainingLeaveDays}
+              getEmployeeStatistics={getEmployeeStatistics}
             />
             {(currentMonth) && 
             <div className="flex flex-wrap gap-4 pt-4 px-3">

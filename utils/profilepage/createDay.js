@@ -35,7 +35,7 @@ export default async function createDay(
 
   const required_total_minutes = (required_hours ?? 0) * 60 + (required_minutes ?? 0);
 
-  if (!time_off) {
+  if (!time_off && !is_lwop && !is_absent) {
     const attend_total = (parseInt(attend_hour) || 0) * 60 + (parseInt(attend_minute) || 0);
     const leave_total = (parseInt(leave_hour) || 0) * 60 + (parseInt(leave_minute) || 0);
 

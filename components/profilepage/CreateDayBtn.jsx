@@ -15,7 +15,6 @@ export default function CreateDayBtn({
     getRemainingLeaveDays, 
     getEmployeeStatistics
 }){
-
     let [isOpen, setIsOpen] = useState(false);
     let [selectedStatus, setSelectedStatus] = useState(null);
 
