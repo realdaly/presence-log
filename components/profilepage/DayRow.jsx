@@ -11,6 +11,8 @@ export default function DayRow({
     getDays, 
     groupInfo, 
     timeOff, 
+    isLwop, 
+    isAbsent, 
     updateCurrentDateInfo, 
     getTotalMoreLess, 
     getRemainingLeaveDays, 
@@ -26,55 +28,69 @@ export default function DayRow({
                     </div>
                 </div>
                 <div className="p-3 my-auto text-center w-56">
-                    {timeOff != 1 && <>
-                    الساعة 
-                    <span className="font-bold px-1">{data.attend_hour}</span>
-                    و
-                    <span className="font-bold px-1">{data.attend_minute}</span>
-                    دقيقة
-                    </>}
-                    {timeOff == 1 && <>
-                    <span className="font-semibold bg-orange-200 bg-opacity-50 rounded-full px-3">
-                        يوم إجازة
-                    </span>
-                    </>}
+                    {(timeOff != 1 && isLwop != 1 && isAbsent != 1) && 
+                        <>
+                            الساعة 
+                            <span className="font-bold px-1">{data.attend_hour}</span>
+                            و
+                            <span className="font-bold px-1">{data.attend_minute}</span>
+                            دقيقة
+                        </>
+                    }
+                    {(timeOff == 1 || isLwop == 1 || isAbsent == 1) && 
+                        <>
+                            <span className="font-semibold bg-orange-200 bg-opacity-50 rounded-full px-3">
+                                {timeOff == 1 && "إجازة براتب"}
+                                {isLwop == 1 && "إجازة بدون براتب"}
+                                {isAbsent == 1 && "غيـــاب"}
+                            </span>
+                        </>
+                    }
                 </div>
                 <div className="p-3 my-auto text-center w-56">
-                    {timeOff != 1 && <>
-                    الساعة 
-                    <span className="font-bold px-1">{data.leave_hour}</span>
-                    و
-                    <span className="font-bold px-1">{data.leave_minute}</span>
-                    دقيقة
-                    </>}
+                    {(timeOff != 1 && isLwop != 1 && isAbsent != 1) && 
+                        <>
+                            الساعة 
+                            <span className="font-bold px-1">{data.leave_hour}</span>
+                            و
+                            <span className="font-bold px-1">{data.leave_minute}</span>
+                            دقيقة
+                        </>
+                    }
                 </div>
                 <div className="p-3 my-auto text-center w-56">
-                    {timeOff != 1 && <>
-                    <span className="font-bold px-1">{data.total_hours}</span>
-                    ساعة و
-                    <span className="font-bold px-1">{data.total_minutes}</span>
-                    دقيقة
-                    </>}
+                    {(timeOff != 1 && isLwop != 1 && isAbsent != 1) && 
+                        <>
+                            <span className="font-bold px-1">{data.total_hours}</span>
+                            ساعة و
+                            <span className="font-bold px-1">{data.total_minutes}</span>
+                            دقيقة
+                        </>
+                    }
+                    </div>
+                <div className="p-3 my-auto text-center w-56">
+                    {(timeOff != 1 && isLwop != 1 && isAbsent != 1) && 
+                        <>
+                            <span className="px-3 py-1 rounded-full bg-green-100">
+                                <span className="font-bold px-1">{data.more_hours}</span>
+                                ساعة و
+                                <span className="font-bold px-1">{data.more_minutes}</span>
+                                دقيقة
+                            </span>
+                        </>
+                    }
                 </div>
                 <div className="p-3 my-auto text-center w-56">
-                    {timeOff != 1 && <>
-                    <span className="px-3 py-1 rounded-full bg-green-100">
-                        <span className="font-bold px-1">{data.more_hours}</span>
-                        ساعة و
-                        <span className="font-bold px-1">{data.more_minutes}</span>
-                        دقيقة
-                    </span>
-                    </>}
-                </div>
-                <div className="p-3 my-auto text-center w-56">
-                    {timeOff != 1 && <>
-                    <span className="px-3 py-1 rounded-full bg-red-100">
-                        <span className="font-bold px-1">{data.less_hours}</span>
-                        ساعة و
-                        <span className="font-bold px-1">{data.less_minutes}</span>
-                        دقيقة
-                    </span>
-                    </>}
+                    {(timeOff != 1 && isLwop != 1 && isAbsent != 1) && 
+                        <>
+                            <span className="px-3 py-1 rounded-full bg-red-100">
+                                <span className="font-bold px-1">{data.less_hours}</span>
+                                ساعة و
+                                <span className="font-bold px-1">{data.less_minutes}</span>
+                                دقيقة
+                            </span>
+                        </>
+                    }
                 </div>
                 <div className="p-3 my-auto text-center w-44">
                     {data.note ? 

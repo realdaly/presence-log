@@ -29,6 +29,8 @@ export default function DaysTable({
                     groupInfo={groupInfo}
                     getDays={getDays}
                     timeOff={item.time_off}
+                    isLwop={item.is_lwop}
+                    isAbsent={item.is_absent}
                     updateCurrentDateInfo={updateCurrentDateInfo}
                     getTotalMoreLess={getTotalMoreLess}
                     getRemainingLeaveDays={getRemainingLeaveDays}
