@@ -12,6 +12,7 @@ export default function DaysTable({
     getDays, 
     updateCurrentDateInfo, 
     getTotalMoreLess, 
+    remainingLeaveDays, 
     getRemainingLeaveDays, 
     getEmployeeStatistics
 }){
@@ -33,6 +34,7 @@ export default function DaysTable({
                     isAbsent={item.is_absent}
                     updateCurrentDateInfo={updateCurrentDateInfo}
                     getTotalMoreLess={getTotalMoreLess}
+                    remainingLeaveDays={remainingLeaveDays}
                     getRemainingLeaveDays={getRemainingLeaveDays}
                     getEmployeeStatistics={getEmployeeStatistics}
                 />

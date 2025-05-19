@@ -83,7 +83,7 @@ export default function CreateEmployeeBtn({getEmployees, groupId}){
                             <input
                                 className="px-4 py-2 bg-comp rounded-xl" 
                                 type="number" 
-                                placeholder="الإجازات" 
+                                placeholder="23 مثلاً" 
                                 onKeyDown={e => handleNumInput(e, setAnnualLeaveDays)}
                                 onChange={e => setAnnualLeaveDays(e.target.value)}
                                 required=""
@@ -95,7 +95,7 @@ export default function CreateEmployeeBtn({getEmployees, groupId}){
                             <input
                                 className="px-4 py-2 bg-comp rounded-xl" 
                                 type="number" 
-                                placeholder="التسلسل" 
+                                placeholder="1 أو 2 أو 3..." 
                                 onKeyDown={e => handleNumInput(e, setOrder)}
                                 onChange={e => setOrder(e.target.value)}
                                 required=""

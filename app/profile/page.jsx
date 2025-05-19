@@ -182,6 +182,7 @@ export default function profile(){
                 groupInfo={groupInfo}
                 updateCurrentDateInfo={updateCurrentDateInfo}
                 getTotalMoreLess={getTotalMoreLess}
+                remainingLeaveDays={remainingLeaveDays}
                 getRemainingLeaveDays={getRemainingLeaveDays}
                 getEmployeeStatistics={getEmployeeStatistics}
               />
@@ -196,6 +197,7 @@ export default function profile(){
               getDays={getDays}
               updateCurrentDateInfo={updateCurrentDateInfo}
               getTotalMoreLess={getTotalMoreLess}
+              remainingLeaveDays={remainingLeaveDays}
               getRemainingLeaveDays={getRemainingLeaveDays}
               getEmployeeStatistics={getEmployeeStatistics}
             />

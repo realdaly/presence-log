@@ -15,6 +15,7 @@ export default function DayRow({
     isAbsent, 
     updateCurrentDateInfo, 
     getTotalMoreLess, 
+    remainingLeaveDays, 
     getRemainingLeaveDays, 
     getEmployeeStatistics
 }){
@@ -111,6 +112,7 @@ export default function DayRow({
                             currentDay={data}
                             updateCurrentDateInfo={updateCurrentDateInfo}
                             getTotalMoreLess={getTotalMoreLess}
+                            remainingLeaveDays={remainingLeaveDays}
                             getRemainingLeaveDays={getRemainingLeaveDays}
                             getEmployeeStatistics={getEmployeeStatistics}
                         />

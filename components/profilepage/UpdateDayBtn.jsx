@@ -14,6 +14,7 @@ export default function UpdateDayBtn({
     currentDay, 
     updateCurrentDateInfo, 
     getTotalMoreLess, 
+    remainingLeaveDays, 
     getRemainingLeaveDays, 
     getEmployeeStatistics
 }){
@@ -150,9 +151,13 @@ export default function UpdateDayBtn({
                             checked={selectedStatus === "time_off"}
                             onClick={() => setSelectedStatus(prev => prev === "time_off" ? null : "time_off")}
                             readOnly
-                            className="cursor-pointer size-7"
+                            className="cursor-pointer size-7 disabled:pointer-events-none disabled:opacity-55"
+                            disabled={Number(remainingLeaveDays) <= 0 && timeOffValue == 0}
                         />
-                        <label htmlFor="time_off" className="cursor-pointer mr-2">
+                        <label 
+                            htmlFor="time_off" 
+                            className="cursor-pointer mr-2 peer-disabled:pointer-events-none peer-disabled:opacity-55"
+                        >
                             إجازة براتب
                         </label>
                     </div>

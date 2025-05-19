@@ -97,7 +97,7 @@ export default function UpdateEmployeeBtn({currentEmployee, imageUrl, getEmploye
                             <input
                                 className="px-4 py-2 bg-comp rounded-xl" 
                                 type="number" 
-                                placeholder="الإجازات" 
+                                placeholder="23 مثلاً" 
                                 value={annualLeaveDays}
                                 onKeyDown={e => handleNumInput(e, setAnnualLeaveDays)}
                                 onChange={e => setAnnualLeaveDays(e.target.value)}
@@ -110,7 +110,7 @@ export default function UpdateEmployeeBtn({currentEmployee, imageUrl, getEmploye
                             <input
                                 className="px-4 py-2 bg-comp rounded-xl" 
                                 type="number" 
-                                placeholder="التسلسل" 
+                                placeholder="1 أو 2 أو 3..." 
                                 value={order}
                                 onKeyDown={e => handleNumInput(e, setOrder)}
                                 onChange={e => setOrder(e.target.value)}

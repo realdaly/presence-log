@@ -18,7 +18,7 @@ export default function MiniTable({
                         الزيادة بالوقت:
                     </span>
                     <span className="px-3 rounded-full bg-green-100 flex">
-                        <p className="font-bold w-7 text-center">{moreHours}</p>
+                        <p className="font-bold w-9 text-center">{moreHours}</p>
                         ساعة و
                         <p className="font-bold w-7 text-center">{moreMins}</p>
                         دقيقة
@@ -31,7 +31,7 @@ export default function MiniTable({
                         النقيصة بالوقت:
                     </span>
                     <span className="px-3 rounded-full bg-red-100 flex">
-                        <p className="font-bold w-7 text-center">{lessHours}</p>
+                        <p className="font-bold w-9 text-center">{lessHours}</p>
                         ساعة و
                         <p className="font-bold w-7 text-center">{lessMins}</p>
                         دقيقة
