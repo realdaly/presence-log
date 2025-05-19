@@ -16,25 +16,25 @@ export default function CreateDayBtn({
     getRemainingLeaveDays, 
     getEmployeeStatistics
 }){
-    let [isOpen, setIsOpen] = useState(false);
-    let [selectedStatus, setSelectedStatus] = useState(null);
+    const [isOpen, setIsOpen] = useState(false);
+    const [selectedStatus, setSelectedStatus] = useState(null);
 
     // states for values
-    let [title, setTitle] = useState("");
-    let [timeOffValue, setTimeOffValue] = useState(0);
-    let [isLwopValue, setIsLwopValue] = useState(0);
-    let [isAbsentValue, setIsAbsentValue] = useState(0);
-    let [attendHour, setAttendHour] = useState("");
-    let [attendMin, setAttendMin] = useState("");
-    let [leaveHour, setLeaveHour] = useState("");
-    let [leaveMin, setLeaveMin] = useState("");
-    let [exitHour, setExitHour] = useState("");
-    let [exitMin, setExitMin] = useState("");
-    let [enterHour, setEnterHour] = useState("");
-    let [enterMin, setEnterMin] = useState("");
-    let [dateMonth, setDateMonth] = useState("");
-    let [dateDay, setDateDay] = useState("");
-    let [note, setNote] = useState("");
+    const [title, setTitle] = useState("");
+    const [timeOffValue, setTimeOffValue] = useState(0);
+    const [isLwopValue, setIsLwopValue] = useState(0);
+    const [isAbsentValue, setIsAbsentValue] = useState(0);
+    const [attendHour, setAttendHour] = useState("");
+    const [attendMin, setAttendMin] = useState("");
+    const [leaveHour, setLeaveHour] = useState("");
+    const [leaveMin, setLeaveMin] = useState("");
+    const [exitHour, setExitHour] = useState("");
+    const [exitMin, setExitMin] = useState("");
+    const [enterHour, setEnterHour] = useState("");
+    const [enterMin, setEnterMin] = useState("");
+    const [dateMonth, setDateMonth] = useState("");
+    const [dateDay, setDateDay] = useState("");
+    const [note, setNote] = useState("");
 
     const submitFunc = async () => {
         const skipTimeFields = timeOffValue || isLwopValue || isAbsentValue;

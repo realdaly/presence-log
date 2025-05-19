@@ -3,7 +3,7 @@ import { useState } from "react";
 import Modal from "@/components/ui/Modal";
 
 export default function ShowNoteBtn({note}){
-    let [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
 
     return(
     <>

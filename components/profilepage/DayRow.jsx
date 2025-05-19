@@ -21,13 +21,13 @@ export default function DayRow({
     return(
         <div className="border-b border-r border-l last:rounded-b-xl bg-white odd:bg-domI w-fit">
             <div className="flex relative">
-                <div className="p-3 my-auto text-center w-40 font-medium">
+                <div className="p-3 my-auto text-center w-40 2xl:w-60 font-medium">
                     <div>{data.title}</div>
                     <div className="text-sm text-gray-500">
                         {data.date_day}/{data.date_month}/{year?.title}
                     </div>
                 </div>
-                <div className="p-3 my-auto text-center w-56">
+                <div className="p-3 my-auto text-center w-56 2xl:w-64">
                     {(timeOff != 1 && isLwop != 1 && isAbsent != 1) && 
                         <>
                             الساعة 
@@ -47,7 +47,7 @@ export default function DayRow({
                         </>
                     }
                 </div>
-                <div className="p-3 my-auto text-center w-56">
+                <div className="p-3 my-auto text-center w-56 2xl:w-64">
                     {(timeOff != 1 && isLwop != 1 && isAbsent != 1) && 
                         <>
                             الساعة 
@@ -58,7 +58,7 @@ export default function DayRow({
                         </>
                     }
                 </div>
-                <div className="p-3 my-auto text-center w-56">
+                <div className="p-3 my-auto text-center w-56 2xl:w-64">
                     {(timeOff != 1 && isLwop != 1 && isAbsent != 1) && 
                         <>
                             <span className="font-bold px-1">{data.total_hours}</span>
@@ -68,7 +68,7 @@ export default function DayRow({
                         </>
                     }
                     </div>
-                <div className="p-3 my-auto text-center w-56">
+                <div className="p-3 my-auto text-center w-56 2xl:w-64">
                     {(timeOff != 1 && isLwop != 1 && isAbsent != 1) && 
                         <>
                             <span className="px-3 py-1 rounded-full bg-green-100">
@@ -80,7 +80,7 @@ export default function DayRow({
                         </>
                     }
                 </div>
-                <div className="p-3 my-auto text-center w-56">
+                <div className="p-3 my-auto text-center w-56 2xl:w-64">
                     {(timeOff != 1 && isLwop != 1 && isAbsent != 1) && 
                         <>
                             <span className="px-3 py-1 rounded-full bg-red-100">

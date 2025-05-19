@@ -21,13 +21,13 @@ export default function CreateYearBtn({
     getRemainingLeaveDays, 
     getEmployeeStatistics
 }){
-    let [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
 
-    let [rightClickMenu, setRightClickMenu] = useState(false);
-    let [menuPosition, setMenuPosition] = useState();
-    let [targetYear, setTargetYear] = useState({});
-    let [updateModal, setUpdateModal] = useState(false);
-    let [deleteModal, setDeleteModal] = useState(false);
+    const [rightClickMenu, setRightClickMenu] = useState(false);
+    const [menuPosition, setMenuPosition] = useState();
+    const [targetYear, setTargetYear] = useState({});
+    const [updateModal, setUpdateModal] = useState(false);
+    const [deleteModal, setDeleteModal] = useState(false);
     const menuRef = useRef();
 
     const handleMenu = (e, year) => {        
@@ -38,7 +38,7 @@ export default function CreateYearBtn({
     };
 
     // states for values
-    let [title, setTitle] = useState("");
+    const [title, setTitle] = useState("");
 
     const submitFunc = async () => {
         if(title){

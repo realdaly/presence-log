@@ -23,13 +23,13 @@ export default function CreateMonthBtn({
     getRemainingLeaveDays, 
     getEmployeeStatistics
 }){
-    let [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
 
-    let [rightClickMenu, setRightClickMenu] = useState(false);
-    let [menuPosition, setMenuPosition] = useState();
-    let [targetMonth, setTargetMonth] = useState({});
-    let [updateModal, setUpdateModal] = useState(false);
-    let [deleteModal, setDeleteModal] = useState(false);
+    const [rightClickMenu, setRightClickMenu] = useState(false);
+    const [menuPosition, setMenuPosition] = useState();
+    const [targetMonth, setTargetMonth] = useState({});
+    const [updateModal, setUpdateModal] = useState(false);
+    const [deleteModal, setDeleteModal] = useState(false);
     const menuRef = useRef();
 
     const handleMenu = (e, month) => {        
@@ -40,7 +40,7 @@ export default function CreateMonthBtn({
     };
 
     // states for values
-    let [title, setTitle] = useState("");
+    const [title, setTitle] = useState("");
 
     const submitFunc = async () => {
         if(title){

@@ -17,9 +17,9 @@ export default function UpdateMonthModal({
     getRemainingLeaveDays
 }){
     // states for values
-    let [title, setTitle] = useState("");
-    let [moreHours, setMoreHours] = useState(currentMonth?.more_hours);
-    let [moreMins, setMoreMins] = useState(currentMonth?.more_minutes);
+    const [title, setTitle] = useState("");
+    const [moreHours, setMoreHours] = useState(currentMonth?.more_hours);
+    const [moreMins, setMoreMins] = useState(currentMonth?.more_minutes);
     
     const submitFunc = async () => {
         if(title){

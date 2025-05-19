@@ -4,7 +4,7 @@ import { TiDelete } from "react-icons/ti";
 import deleteEmployee from "@/utils/grouppage/deleteEmployee";
 
 export default function DeleteEmployeeBtn({currentEmployee, getEmployees}){
-    let [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
 
     const submitFunc = async () => {
         setIsOpen(false);

@@ -23,7 +23,7 @@ export default async function initDatabase() {
       "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
       "name" VARCHAR(255) DEFAULT 'موظف بدون اسم',
       "image" VARCHAR(255) DEFAULT NULL,
-      "annual_leave_days" INTEGER DEFAULT 23,
+      "annual_leave_days" INTEGER DEFAULT 0,
       "absence_days" INTEGER DEFAULT 0,
       "lwop_days" INTEGER DEFAULT 0,
       "order" INTEGER DEFAULT 0,

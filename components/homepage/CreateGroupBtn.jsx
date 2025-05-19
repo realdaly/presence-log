@@ -5,12 +5,12 @@ import createGroup from "@/utils/homepage/createGroup";
 import handleNumInput from "@/utils/handleNumInput";
 
 export default function CreateGroupBtn({getGroups}){
-    let [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
 
     // states for values
-    let [title, setTitle] = useState("");
-    let [reqHours, setReqHours] = useState("");
-    let [reqMins, setReqMins] = useState("");
+    const [title, setTitle] = useState("");
+    const [reqHours, setReqHours] = useState("");
+    const [reqMins, setReqMins] = useState("");
 
     const submitFunc = async () => {
         if(title && reqHours && reqMins){

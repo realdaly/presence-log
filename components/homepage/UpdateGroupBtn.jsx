@@ -6,7 +6,7 @@ import handleNumInput from "@/utils/handleNumInput";
 import { TbEditCircle } from "react-icons/tb";
 
 export default function UpdateGroupBtn({currentGroup, getGroups}){
-    let [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
 
     // states for values
     const [title, setTitle] = useState(currentGroup?.title);

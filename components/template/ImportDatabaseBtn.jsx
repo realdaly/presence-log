@@ -46,7 +46,7 @@ export default function ImportDatabaseBtn(){
 
     return(
         <button
-            className="flex items-center justify-center gap-x-2 w-fit select-none bg-accent1 text-white font-bold px-3 py-1 rounded-full transition-all hover:text-accent1 hover:bg-white border border-accent1" 
+            className="flex items-center gap-x-2 w-fit bg-white text-accent1 font-bold px-3 py-1 rounded-full transition-all hover:text-white hover:bg-accent1 border border-accent1" 
             onClick={() => importDatabase()}
         >
             استيراد قاعدة بيانات

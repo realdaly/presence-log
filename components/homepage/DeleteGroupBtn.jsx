@@ -4,7 +4,7 @@ import { TiDelete } from "react-icons/ti";
 import deleteGroup from "@/utils/homepage/deleteGroup";
 
 export default function DeleteGroupBtn({currentGroup, getGroups}){
-    let [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
 
     const submitFunc = async () => {
         setIsOpen(false);

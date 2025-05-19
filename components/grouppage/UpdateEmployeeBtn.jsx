@@ -9,20 +9,20 @@ import { TbEditCircle } from "react-icons/tb";
 import { RiDeleteBack2Fill } from "react-icons/ri";
 
 export default function UpdateEmployeeBtn({currentEmployee, imageUrl, getEmployees}){
-    let [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
 
     // states for values
-    let [name, setName] = useState(currentEmployee?.name);
-    let [annualLeaveDays, setAnnualLeaveDays] = useState(currentEmployee?.annual_leave_days);
-    let [order, setOrder] = useState(currentEmployee?.order);
-    let [image, setImage] = useState(currentEmployee?.image);
+    const [name, setName] = useState(currentEmployee?.name);
+    const [annualLeaveDays, setAnnualLeaveDays] = useState(currentEmployee?.annual_leave_days);
+    const [order, setOrder] = useState(currentEmployee?.order);
+    const [image, setImage] = useState(currentEmployee?.image);
 
     // image preview and save states
-    let [previewImage, setPreviewImage] = useState("");
-    let [imagePath, setImagePath] = useState("");
+    const [previewImage, setPreviewImage] = useState("");
+    const [imagePath, setImagePath] = useState("");
 
     // new image state (only in this component)
-    let [newImage, setNewImage] = useState("");
+    const [newImage, setNewImage] = useState("");
 
     const submitFunc = async () => {
         if(name != "" && annualLeaveDays != "" && order != ""){
@@ -92,26 +92,32 @@ export default function UpdateEmployeeBtn({currentEmployee, imageUrl, getEmploye
                         data-autofocus
                     />
                     <div className="flex items-center justify-center gap-x-8">
-                        <input
-                            className="px-4 py-2 bg-comp rounded-xl" 
-                            type="number" 
-                            placeholder="الإجازات" 
-                            value={annualLeaveDays}
-                            onKeyDown={e => handleNumInput(e, setAnnualLeaveDays)}
-                            onChange={e => setAnnualLeaveDays(e.target.value)}
-                            required=""
-                            name="annual_leave_days"
-                        />
-                        <input
-                            className="px-4 py-2 bg-comp rounded-xl" 
-                            type="number" 
-                            placeholder="التسلسل" 
-                            value={order}
-                            onKeyDown={e => handleNumInput(e, setOrder)}
-                            onChange={e => setOrder(e.target.value)}
-                            required=""
-                            name="order"
-                        />
+                        <div>
+                            <p className="text-sm pb-1 pr-1">عدد الإجازات للموظف:</p>
+                            <input
+                                className="px-4 py-2 bg-comp rounded-xl" 
+                                type="number" 
+                                placeholder="الإجازات" 
+                                value={annualLeaveDays}
+                                onKeyDown={e => handleNumInput(e, setAnnualLeaveDays)}
+                                onChange={e => setAnnualLeaveDays(e.target.value)}
+                                required=""
+                                name="annual_leave_days"
+                            />
+                        </div>
+                        <div>
+                            <p className="text-sm pb-1 pr-1">تسلسل الموظف:</p>
+                            <input
+                                className="px-4 py-2 bg-comp rounded-xl" 
+                                type="number" 
+                                placeholder="التسلسل" 
+                                value={order}
+                                onKeyDown={e => handleNumInput(e, setOrder)}
+                                onChange={e => setOrder(e.target.value)}
+                                required=""
+                                name="order"
+                            />
+                        </div>
                     </div>
                 </div>
                 <div className="flex justify-start pt-5 gap-x-5 items-center">
@@ -126,7 +132,7 @@ export default function UpdateEmployeeBtn({currentEmployee, imageUrl, getEmploye
                     <div className="size-16 overflow-hidden rounded-full">
                         <img 
                             src={previewImage ? previewImage : "/imgs/default.png"}
-                            alt="الصورة الافتراضية"
+                            alt="لا تتوفر صورة"
                             className="w-full h-full"
                         />
                     </div>

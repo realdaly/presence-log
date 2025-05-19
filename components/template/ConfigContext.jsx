@@ -17,8 +17,8 @@ export const ThemeProvider = ({ children }) => {
     const [principal, setPrincipal] = useState(null);
     const [accentColor, setAccentColor] = useState("accent1");
 
-    let [groups, setGroups] = useState([]);
-    let [terms, setTerms] = useState([]);
+    const [groups, setGroups] = useState([]);
+    const [terms, setTerms] = useState([]);
 
     async function createDatabaseTables(){
         await initDatabase();

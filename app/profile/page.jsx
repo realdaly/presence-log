@@ -200,7 +200,7 @@ export default function profile(){
               getEmployeeStatistics={getEmployeeStatistics}
             />
             {(currentMonth) && 
-            <div className="flex flex-wrap gap-4 pt-4 px-3">
+            <div className="flex justify-center flex-wrap gap-4 pt-4 px-3">
               <MiniTable 
                 label={`المجموع الشهري - ${currentMonth?.title}`}
                 moreHours={currentMonth?.more_hours}

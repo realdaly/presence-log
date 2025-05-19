@@ -17,25 +17,25 @@ export default function UpdateDayBtn({
     getRemainingLeaveDays, 
     getEmployeeStatistics
 }){
-    let [isOpen, setIsOpen] = useState(false);
-    let [selectedStatus, setSelectedStatus] = useState(null);
+    const [isOpen, setIsOpen] = useState(false);
+    const [selectedStatus, setSelectedStatus] = useState(null);
 
     // states for values
-    let [title, setTitle] = useState(currentDay?.title);
-    let [timeOffValue, setTimeOffValue] = useState(currentDay?.time_off);
-    let [isLwopValue, setIsLwopValue] = useState(currentDay?.is_lwop);
-    let [isAbsentValue, setIsAbsentValue] = useState(currentDay?.is_absent);
-    let [attendHour, setAttendHour] = useState(currentDay?.time_off == 0 ? currentDay?.attend_hour : "");
-    let [attendMin, setAttendMin] = useState(currentDay?.time_off == 0 ? currentDay?.attend_minute : "");
-    let [leaveHour, setLeaveHour] = useState(currentDay?.time_off == 0 ? currentDay?.leave_hour : "");
-    let [leaveMin, setLeaveMin] = useState(currentDay?.time_off == 0 ? currentDay?.leave_minute : "");
-    let [exitHour, setExitHour] = useState(currentDay?.time_off == 0 ? currentDay?.exit_hour : "");
-    let [exitMin, setExitMin] = useState(currentDay?.time_off == 0 ? currentDay?.exit_minute : "");
-    let [enterHour, setEnterHour] = useState(currentDay?.time_off == 0 ? currentDay?.enter_hour : "");
-    let [enterMin, setEnterMin] = useState(currentDay?.time_off == 0 ? currentDay?.enter_minute : "");
-    let [dateMonth, setDateMonth] = useState(currentDay?.date_month);
-    let [dateDay, setDateDay] = useState(currentDay?.date_day);
-    let [note, setNote] = useState(currentDay?.note ?? "");
+    const [title, setTitle] = useState(currentDay?.title);
+    const [timeOffValue, setTimeOffValue] = useState(currentDay?.time_off);
+    const [isLwopValue, setIsLwopValue] = useState(currentDay?.is_lwop);
+    const [isAbsentValue, setIsAbsentValue] = useState(currentDay?.is_absent);
+    const [attendHour, setAttendHour] = useState(currentDay?.time_off == 0 ? currentDay?.attend_hour : "");
+    const [attendMin, setAttendMin] = useState(currentDay?.time_off == 0 ? currentDay?.attend_minute : "");
+    const [leaveHour, setLeaveHour] = useState(currentDay?.time_off == 0 ? currentDay?.leave_hour : "");
+    const [leaveMin, setLeaveMin] = useState(currentDay?.time_off == 0 ? currentDay?.leave_minute : "");
+    const [exitHour, setExitHour] = useState(currentDay?.time_off == 0 ? currentDay?.exit_hour : "");
+    const [exitMin, setExitMin] = useState(currentDay?.time_off == 0 ? currentDay?.exit_minute : "");
+    const [enterHour, setEnterHour] = useState(currentDay?.time_off == 0 ? currentDay?.enter_hour : "");
+    const [enterMin, setEnterMin] = useState(currentDay?.time_off == 0 ? currentDay?.enter_minute : "");
+    const [dateMonth, setDateMonth] = useState(currentDay?.date_month);
+    const [dateDay, setDateDay] = useState(currentDay?.date_day);
+    const [note, setNote] = useState(currentDay?.note ?? "");
 
     const submitFunc = async () => {
         const skipTimeFields = timeOffValue || isLwopValue || isAbsentValue;

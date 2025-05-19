@@ -49,6 +49,10 @@ export default function group(){
 
     return(
         <Layout breadcrumb={breadcrumb}>
+            <CreateEmployeeBtn
+                getEmployees={getEmployees}
+                groupId={groupId}
+            />
             {isLoading && <Loader />}
             {!isLoading && 
                 <Employees 
@@ -58,10 +62,6 @@ export default function group(){
                     groupId={groupId}
                 />
             }
-            <CreateEmployeeBtn
-                getEmployees={getEmployees}
-                groupId={groupId}
-            />
         </Layout>
     );
 }

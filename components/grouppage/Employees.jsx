@@ -15,25 +15,27 @@ export default function Employees({employeesData, getEmployees, groupTitle, grou
     }, []);
 
     return(
-        <div className="flex flex-wrap items-center justify-center gap-5 pt-10">
-            {employeesData
-            // create a shallow copy to avoid mutating the original array
-            .slice()
-            // sort in ascending order
-            .sort((a, b) => a.order - b.order)
-            .map(item => (
-                <EmployeeCard 
-                    key={item.id}
-                    currentEmployee={item}
-                    appDataPath={appDataPath}
-                    getEmployees={getEmployees}
-                    groupTitle={groupTitle}
-                    groupId={groupId}
-                />
-            ))}
-            {employeesData.length == 0 &&
-                <NoData />
-            }
+        <div className="mt-16 pb-5  h-[calc(100vh-250px)] overflow-y-auto xl:rounded-t-xl">
+            <div className="flex flex-wrap items-center justify-center gap-5 pt-10">
+                {employeesData
+                // create a shallow copy to avoid mutating the original array
+                .slice()
+                // sort in ascending order
+                .sort((a, b) => a.order - b.order)
+                .map(item => (
+                    <EmployeeCard 
+                        key={item.id}
+                        currentEmployee={item}
+                        appDataPath={appDataPath}
+                        getEmployees={getEmployees}
+                        groupTitle={groupTitle}
+                        groupId={groupId}
+                    />
+                ))}
+                {employeesData.length == 0 &&
+                    <NoData />
+                }
+            </div>
         </div>
     )
 }

@@ -13,7 +13,7 @@ export default function DeleteDayBtn({
     getRemainingLeaveDays, 
     getEmployeeStatistics
 }){
-    let [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
 
     const submitFunc = async () => {
         setIsOpen(false);
