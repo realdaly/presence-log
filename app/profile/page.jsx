@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FaUsers } from "react-icons/fa";
 import { FaUserCircle } from "react-icons/fa";
 import Layout from "@/components/template/Layout";
@@ -35,6 +35,9 @@ export default function profile(){
     const [yearsData, setYearsData] = useState([]);
     const [monthsData, setMonthsData] = useState([]);
     const [daysData, setDaysData] = useState([]);
+
+    // ref to avoid running getMonths function when year is set by updateCurrentDateInfo function
+    const skipGetMonthsRef = useRef(false);
 
     const [currentYear, setCurrentYear] = useState("");
     const [currentMonth, setCurrentMonth] = useState("");
@@ -74,7 +77,10 @@ export default function profile(){
     const updateCurrentDateInfo = async () => {
       const fetchedMonth = await readSingleMonth(currentMonth.id);   
       const fetchedYear = await readSingleYear(currentYear.id);
+
       if(fetchedMonth && fetchedYear){
+        // set skip ref to true
+        skipGetMonthsRef.current = true;
         setCurrentMonth(fetchedMonth);
         setCurrentYear(fetchedYear);
       }      
@@ -87,7 +93,7 @@ export default function profile(){
 
     const getYears = async () => {
       const fetchedYears = await readYears(employeeId);
-      if(fetchedYears.length > 0){
+      if(fetchedYears.length > 0 && !currentYear){
         setCurrentYear(fetchedYears[0]);
       }
       setYearsData(fetchedYears);
@@ -126,6 +132,12 @@ export default function profile(){
     }, [employeeId]);
 
     useEffect(() => {
+       if (skipGetMonthsRef.current){
+        // set skip ref to false to get back to default
+        skipGetMonthsRef.current = false;
+        return;
+      }
+
       if(currentYear){
         getMonths();
       }

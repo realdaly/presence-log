@@ -142,6 +142,7 @@ export default function UpdateDayBtn({
                     onChange={e => setTitle(e.target.value)}
                     data-autofocus
                 />
+                {/* day_off, is_lwop and is_absent fields */}
                 <div className="flex items-center justify-between w-full pt-3 select-none">
                     <div className="flex items-center justify-start">
                         <input 
@@ -153,6 +154,7 @@ export default function UpdateDayBtn({
                             readOnly
                             className="cursor-pointer size-7 disabled:pointer-events-none disabled:opacity-55"
                             disabled={Number(remainingLeaveDays) <= 0 && timeOffValue == 0}
+                            tabIndex={-1}
                         />
                         <label 
                             htmlFor="time_off" 
@@ -171,6 +173,7 @@ export default function UpdateDayBtn({
                             onClick={() => setSelectedStatus(prev => prev === "is_lwop" ? null : "is_lwop")}
                             readOnly
                             className="cursor-pointer size-7"
+                            tabIndex={-1}
                         />
                         <label htmlFor="is_lwop" className="cursor-pointer mr-2">
                             إجازة بدون راتب
@@ -186,6 +189,7 @@ export default function UpdateDayBtn({
                             onClick={() => setSelectedStatus(prev => prev === "is_absent" ? null : "is_absent")}
                             readOnly
                             className="cursor-pointer size-7"
+                            tabIndex={-1}
                         />
                         <label htmlFor="is_absent" className="cursor-pointer mr-2">
                             غياب
@@ -342,6 +346,9 @@ export default function UpdateDayBtn({
                         onChange={e => setNote(e.target.value)}
                     ></textarea>
                 </div>
+                <p className="text-danger text-sm py-2">
+                    ملاحظة/ الوقت المدخل يجب أن يكون بنظام 24 ساعة.
+                </p>
                 <button type="submit" hidden />
             </form>
         </Modal>

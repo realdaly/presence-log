@@ -100,6 +100,15 @@ export default function CreateDayBtn({
         setIsAbsentValue(selectedStatus === "is_absent" ? 1 : 0);
     }, [selectedStatus]);
 
+    // set today's date to date states on first load
+    useEffect(() => {
+        const today = new Date();
+        const day = String(today.getDate()).padStart(2, "0");
+        const month = String(today.getMonth() + 1);
+        setDateDay(day);
+        setDateMonth(month);
+    }, []);
+
     return(
     <>
         <button
@@ -131,6 +140,7 @@ export default function CreateDayBtn({
                     onChange={e => setTitle(e.target.value)}
                     data-autofocus
                 />
+                {/* day_off, is_lwop and is_absent fields */}
                 <div className="flex items-center justify-between w-full pt-3 select-none">
                     <div className="flex items-center justify-start">
                         <input 
@@ -142,6 +152,7 @@ export default function CreateDayBtn({
                             readOnly
                             className="peer cursor-pointer size-7 disabled:pointer-events-none disabled:opacity-55"
                             disabled={Number(remainingLeaveDays) <= 0}
+                            tabIndex={-1}
                         />
                         <label 
                             htmlFor="time_off" 
@@ -160,6 +171,7 @@ export default function CreateDayBtn({
                             onClick={() => setSelectedStatus(prev => prev === "is_lwop" ? null : "is_lwop")}
                             readOnly
                             className="cursor-pointer size-7"
+                            tabIndex={-1}
                         />
                         <label htmlFor="is_lwop" className="cursor-pointer mr-2">
                             إجازة بدون راتب
@@ -175,6 +187,7 @@ export default function CreateDayBtn({
                             onClick={() => setSelectedStatus(prev => prev === "is_absent" ? null : "is_absent")}
                             readOnly
                             className="cursor-pointer size-7"
+                            tabIndex={-1}
                         />
                         <label htmlFor="is_absent" className="cursor-pointer mr-2">
                             غياب
@@ -291,6 +304,7 @@ export default function CreateDayBtn({
                         </div>
                     </div>
                 </div>
+                {/* date fields */}
                 <div className="pt-7">
                     <p className="text-center pb-2 font-bold">تاريخ اليوم:</p>
                     <div className="flex items-center gap-x-8">
@@ -299,6 +313,7 @@ export default function CreateDayBtn({
                             className="px-4 py-2 bg-comp rounded-xl w-44 border border-danger" 
                             type="text"
                             name="date_day"
+                            value={dateDay}
                             onKeyDown={e => handleNumInput(e, setDateDay)}
                             onChange={e => setDateDay(e.target.value)}
                             maxLength={2}
@@ -308,6 +323,7 @@ export default function CreateDayBtn({
                             className="px-4 py-2 bg-comp rounded-xl w-44 border border-danger" 
                             type="text"
                             name="date_month"
+                            value={dateMonth}
                             onKeyDown={e => handleNumInput(e, setDateMonth)}
                             onChange={e => setDateMonth(e.target.value)}
                             maxLength={2}
@@ -320,6 +336,9 @@ export default function CreateDayBtn({
                         name="note" 
                     ></textarea>
                 </div>
+                <p className="text-danger text-sm py-2">
+                    ملاحظة/ الوقت المدخل يجب أن يكون بنظام 24 ساعة.
+                </p>
                 <button type="submit" hidden />
             </form>
         </Modal>
